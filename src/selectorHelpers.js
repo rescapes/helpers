@@ -10,7 +10,7 @@
  */
 
 import Either from 'data.either';
-import {filterWithKeys, mapPropValueAsIndex, mergeDeep, throwing} from 'rescape-ramda';
+import {filterWithKeys, mapPropValueAsIndex, mergeDeep} from 'rescape-ramda';
 import * as R from 'ramda';
 import memoize from 'memoize-immutable';
 import NamedTupleMap from 'namedtuplemap';
