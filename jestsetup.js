@@ -9,20 +9,9 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Make Enzyme Rx available in all test files without importing
-import {shallow, render, mount} from 'enzyme';
-// Enzyme setup
-import enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import * as R from 'ramda'
 import {JSDOM} from 'jsdom';
 
-enzyme.configure({adapter: new Adapter()});
-
-
-global.shallow = shallow;
-global.render = render;
-global.mount = mount;
 global.navigator = {};
 
 // jsdom, window, document, navigator setup

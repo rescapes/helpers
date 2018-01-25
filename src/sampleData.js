@@ -9,7 +9,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import * as R from 'ramda'
+import * as R from 'ramda';
 import {addResolveFunctionsToSchema} from 'graphql-tools';
 import {
   GraphQLSchema,
@@ -19,12 +19,13 @@ import {
 } from 'graphql';
 import {findOneValueByParams} from 'selectorHelpers';
 import {throwing, hasStrPath} from 'rescape-ramda';
+
 const {reqPath} = throwing;
 
 const RegionType = new GraphQLObjectType({
   name: 'Region',
   fields: {
-    id: { type: new GraphQLNonNull(GraphQLString) },
+    id: {type: new GraphQLNonNull(GraphQLString)},
     name: {type: GraphQLString}
   }
 });
@@ -36,11 +37,11 @@ const StoreType = new GraphQLObjectType({
     region: {
       type: RegionType,
       args: {
-        id: { type: new GraphQLNonNull(GraphQLString) }
+        id: {type: new GraphQLNonNull(GraphQLString)}
       }
     }
   }
-})
+});
 // Fake Apollo Schema
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -56,7 +57,7 @@ export const sampleConfig = {
       name: 'Oakland'
     }
   ]
-}
+};
 
 /**
  * Minimum schema for testing
@@ -72,7 +73,11 @@ addResolveFunctionsToSchema(resolvedSchema, {
   },
   Query: {
     store(obj, args) {
-      return sampleConfig
+      return sampleConfig;
     }
   }
 });
+
+export const createInitialState = config => R.merge({
+  foo: 'boo'
+}, config);
