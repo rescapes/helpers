@@ -13,7 +13,7 @@ import {
 import {toTimeString} from './timeHelpers';
 import {
   applyDefaultRegion, applyRegionsToUsers, firstUserLens, mapDefaultUsers,
-  wrapLocationsWithFeatures
+  wrapLocationsWithFeatures, applyDefaultStyles
 } from './configHelpers';
 import {
   asUnaryMemoize,  makeInnerJoinByLensThenFilterSelector,
@@ -46,6 +46,7 @@ export {
   mapDefaultUsers,
   applyRegionsToUsers,
   wrapLocationsWithFeatures,
+  applyDefaultStyles,
   firstUserLens,
   mergeStateAndProps,
   makeInnerJoinByLensThenFilterSelector,

@@ -16,6 +16,21 @@ import {v} from 'rescape-validate';
 
 const {reqPath} = throwing;
 
+export const applyDefaultStyles = v((defaultConfig, styles) =>
+    mergeDeep(
+      defaultConfig,
+      {
+        styles: {
+          // Defaults can be merged with container props and props defined on the component
+          default: styles
+        }
+      }
+    ),
+  [
+    ['defaultConfig', PropTypes.shape().isRequired],
+    ['styles', PropTypes.shape().isRequired]
+  ], 'applyDefaultStyles');
+
 /**
  * Copies the 'default' region to the keys of the specified regions, removing the default key,
  * and then deep merges.
