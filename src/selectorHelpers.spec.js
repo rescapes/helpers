@@ -57,19 +57,6 @@ describe('reselectHelpers', () => {
     );
   });
 
-  test('findOneValueByParams', () => {
-    const items = [
-      {brand: 'crush', flavor: 'grape'},
-      {brand: 'fanta', flavor: 'strawberry'},
-      {brand: 'crush', flavor: 'orange'}
-    ];
-    const params = {brand: 'crush', flavor: 'orange'};
-    expect(findOneValueByParams(params, items)).toEqual(
-      {brand: 'crush', flavor: 'orange'}
-    );
-
-  });
-
   test('NamedTupleMap', async () => {
     const cache = new NamedTupleMap()
     const keyMap = {crazy: 8888, mother: 'hubbard'}
