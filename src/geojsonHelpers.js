@@ -19,7 +19,7 @@ export const featureByType = reduceFeaturesBy(feature => R.match(regex, feature.
 /**
  * Split geojson by feature type
  * @param {Object} osm
- * @param {[Feature]} osm.features Default []. Features that are way, node, or route according to their id
+ * @param {Feature[]} osm.features Default []. Features that are way, node, or route according to their id
  * @returns {Object} Copies of the gtfs with a single type of Feature
  * geojsonByType:: geojson g = g -> <String, g>
  */
@@ -35,8 +35,8 @@ export const geojsonByType = osm => {
  * Fetch each square of transit and merge the results by feature id
  * concatValues combines are results sets when they return
  * @param {String} k The key of the object being tested.
- * @param {[Feature]} l The left side Features
- * @param {[Feature]} r The right side Features
+ * @param {Feature[]} l The left side Features
+ * @param {Feature[]} r The right side Features
  * @returns {Object} The concatted features
  */
 export const concatFeatures = (k, l, r) => k === 'features' ? R.concat(l, r) : r;

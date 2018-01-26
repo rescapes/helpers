@@ -17,7 +17,7 @@ import {
 } from './configHelpers';
 import {
   asUnaryMemoize,  makeInnerJoinByLensThenFilterSelector,
-  mergeStateAndProps
+  mergeStateAndProps, STATUS, status
 } from 'selectorHelpers';
 
 export {
@@ -49,6 +49,8 @@ export {
   applyDefaultStyles,
   firstUserLens,
   mergeStateAndProps,
+  STATUS,
+  status,
   makeInnerJoinByLensThenFilterSelector,
   asUnaryMemoize
 };

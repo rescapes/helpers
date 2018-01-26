@@ -8,6 +8,7 @@
     "src"
   ],
   "scripts": {
+    "docs": "jsdoc ./src",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
@@ -85,8 +86,9 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "jest-cli": "^22.1.4",
+    "jsdoc-babel": "^0.3.0",
+    "jsdoc-webpack-plugin": "^0.0.2",
     "promise": "8.0.1",
-    "raf": "3.4.0",
     "react-dev-utils": "^4.2.1",
     "sw-precache-webpack-plugin": "0.11.4",
     "uglifyjs-webpack-plugin": "^1.1.6",

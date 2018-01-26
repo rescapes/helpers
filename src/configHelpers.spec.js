@@ -14,7 +14,7 @@
  * This basically clones a template so that it can be merged into each real region
  * @param {Object} defaultConfig The defaultConfig being merged into another config
  * The default region of this config is copied to the given regionKeys
- * @param {[String]} regionKeys The region keys to target.
+ * @param {String[]} regionKeys The region keys to target.
  * @returns {Object} The "modified" defaultConfig
  */
 import {applyDefaultRegion, mapDefaultUsers, keysAsIdObj, applyRegionsToUsers} from './configHelpers';

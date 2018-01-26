@@ -43,8 +43,8 @@ export const resolveSvgPoints = R.curry((opt, feature) => {
 
 /**
  * Resolves an extent into a rectangular polygon
- * @param {[Number]} minLatLon 2 element array. The minimum lat/lon
- * @param {[Number]} maxLatLon 2 element array. The maximum lat/lon
+ * @param {Number[]} minLatLon 2 element array. The minimum lat/lon
+ * @param {Number[]} maxLatLon 2 element array. The maximum lat/lon
  */
 export const resolveFeatureFromExtent = (minLatLon, maxLatLon) => {
   return {

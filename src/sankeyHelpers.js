@@ -33,8 +33,8 @@ const {reqStrPath} = throwing
  * @param {Boolean} [geospatial] Default to true. If true use geospatial positions for the nodes, otherwise use
  * columns
  * @param {Object} sankeyData. An object with a nodes key and links key
- * @param {[Object]} sankeyData.nodes A list of objects that must have a name at a minimum
- * @param {[Object]} sankeyData.links A list of objects that must have a source and target index into the
+ * @param {Object[]} sankeyData.nodes A list of objects that must have a name at a minimum
+ * @param {Object[]} sankeyData.links A list of objects that must have a source and target index into the
  * nodes array and must have a value indicating the weight of the headerLink
  * @returns {null}
  */
@@ -149,9 +149,9 @@ export const sankeyGeospatialTranslate = R.curry((opt, featureNode) => {
 /**
  * Calculate the projected value of the bounding box points and return Sankey Node friendly
  * x0, y0, x1, y1
- * @param {Object} opt
- * @param {object} bbox
- * @return {*[]}
+ * @param {Object} opt The react-map-gl projection objet
+ * @param {Number[]} bbox Simple 4 element bounding box [x0, y0, x1, y1]
+ * @return {Object} The x0, y0, x1, y1 bounds
  */
 export const projectBoundingBox = R.curry((opt, bbox) => {
   // Get the bounding box of the feature
