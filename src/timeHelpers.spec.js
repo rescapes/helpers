@@ -13,11 +13,9 @@ import moment from 'moment';
 
 describe('Time helper functions', () =>{
     test('toTimeString rounds durations', () => {
-        expect(toTimeString(moment.duration('22:22:22.222'))).
-        toEqual('22:22:22');
+        expect(toTimeString(moment.duration('22:22:22.222'))).toEqual('22:22:22');
     });
     test('toTimeString handles greater than 24 hours', () => {
-        expect(toTimeString(moment.duration('55:22:00'))).
-        toEqual('55:22:00');
+        expect(toTimeString(moment.duration('55:22:00'))).toEqual('55:22:00');
     });
 });

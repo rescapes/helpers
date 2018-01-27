@@ -10,7 +10,7 @@
  */
 
 import * as R from 'ramda';
-import { mergeStateAndProps, makeInnerJoinByLensThenFilterSelector, findOneValueByParams }
+import { mergeStateAndProps, makeInnerJoinByLensThenFilterSelector }
   from './selectorHelpers';
 import {asUnaryMemoize} from 'selectorHelpers';
 import NamedTupleMap from 'namedtuplemap';

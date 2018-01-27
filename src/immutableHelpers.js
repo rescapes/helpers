@@ -13,7 +13,7 @@ import * as R from 'ramda';
 import {mapPropValueAsIndex} from 'rescape-ramda';
 import {fromJS, Iterable} from 'immutable';
 
-/**
+/*a
  * Convert the obj to an Immutable if it is not.
  * @param {Object} obj a An Immutable or anything else
  * @returns {Immutable} The object as an immutable
