@@ -33,12 +33,13 @@ if (env === 'development' || env === 'production') {
       main: true,
       browser: true,
     }),
-    commonjs(),
     babel({
       runtimeHelpers: true,
       exclude: 'node_modules/**',
       plugins: ['external-helpers']
     }),
+    // This must come after babel, else spread operator doesn't work!
+    commonjs(),
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
     })
