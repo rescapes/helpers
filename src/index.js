@@ -18,7 +18,7 @@ import {
 import {
   asUnaryMemoize,  makeInnerJoinByLensThenFilterSelector,
   mergeStateAndProps, STATUS, status
-} from 'selectorHelpers';
+} from './selectorHelpers';
 
 export {
   featureByType,
