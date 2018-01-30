@@ -6195,9 +6195,9 @@ rescape-ramda@^1.4.14:
     ramda-maybe "^0.18.0"
     util "^0.10.3"
 
-rescape-ramda@^1.4.16:
-  version "1.4.16"
-  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.16.tgz#0395eba748d9fd03bf6a6cf34aecc7a9b9f4b938"
+rescape-ramda@^1.4.17:
+  version "1.4.17"
+  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.17.tgz#104fa2e28f0de2c5762c574f8b9ae6d67de4f50c"
   dependencies:
     data.maybe "^1.2.2"
     data.task "^3.1.1"

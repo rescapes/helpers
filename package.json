@@ -70,7 +70,7 @@
     "ramda": "^0.25.0",
     "react-apollo": "^2.0.4",
     "rebass": "^1.0.4",
-    "rescape-ramda": "^1.4.16",
+    "rescape-ramda": "^1.4.17",
     "rescape-validate": "^1.2.5",
     "reselect": "^3.0.1"
   },
