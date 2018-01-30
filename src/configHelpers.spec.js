@@ -19,9 +19,8 @@
  */
 import {applyDefaultRegion, mapDefaultUsers, keysAsIdObj, applyRegionsToUsers} from './configHelpers';
 import * as R from 'ramda';
-import {throwing} from 'rescape-ramda';
+import {reqPathThrowing} from 'rescape-ramda';
 
-const {reqPath} = throwing;
 const APP_ADMIN = 'app_admin';
 const REGION_MANAGER = 'region_manager';
 const REGION_USER = 'region_user';
@@ -70,7 +69,7 @@ describe('configHelpers', () => {
       R.keys(
         R.merge(
           regions.kamchatka,
-          reqPath(['regions', 'default'], defaultConfig)
+          reqPathThrowing(['regions', 'default'], defaultConfig)
         )
       ).sort()
     );
@@ -101,12 +100,12 @@ describe('configHelpers', () => {
     });
 
     expect(
-      R.keys(reqPath([REGION_MANAGER, 'linus'], mergedConfig)).sort()
+      R.keys(reqPathThrowing([REGION_MANAGER, 'linus'], mergedConfig)).sort()
     ).toEqual(
       R.keys(
         R.merge(
           realUsers.linus,
-          reqPath(['users', REGION_MANAGER], defaultConfig)
+          reqPathThrowing(['users', REGION_MANAGER], defaultConfig)
         )
       ).sort()
     );
