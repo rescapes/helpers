@@ -4422,9 +4422,9 @@ jsdom@^11.5.1:
     ws "^4.0.0"
     xml-name-validator "^3.0.0"
 
-jsdom@^11.6.1:
-  version "11.6.1"
-  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-11.6.1.tgz#43fffc10072597a8ee9680cba46900d9e4dbeba2"
+jsdom@^11.6.2:
+  version "11.6.2"
+  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-11.6.2.tgz#25d1ef332d48adf77fc5221fe2619967923f16bb"
   dependencies:
     abab "^1.0.4"
     acorn "^5.3.0"
@@ -4439,7 +4439,7 @@ jsdom@^11.6.1:
     html-encoding-sniffer "^1.0.2"
     left-pad "^1.2.0"
     nwmatcher "^1.4.3"
-    parse5 "^4.0.0"
+    parse5 "4.0.0"
     pn "^1.1.0"
     request "^2.83.0"
     request-promise-native "^1.0.5"
@@ -5449,7 +5449,7 @@ parse-passwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
 
-parse5@^4.0.0:
+parse5@4.0.0, parse5@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
 
@@ -6195,9 +6195,9 @@ rescape-ramda@^1.4.14:
     ramda-maybe "^0.18.0"
     util "^0.10.3"
 
-rescape-ramda@^1.4.15:
-  version "1.4.15"
-  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.15.tgz#6eda3935d39921c6a6bb7fabc069efc49df61e6b"
+rescape-ramda@^1.4.16:
+  version "1.4.16"
+  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.16.tgz#0395eba748d9fd03bf6a6cf34aecc7a9b9f4b938"
   dependencies:
     data.maybe "^1.2.2"
     data.task "^3.1.1"

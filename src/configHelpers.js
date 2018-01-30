@@ -10,11 +10,9 @@
  */
 
 import * as R from 'ramda';
-import {moveToKeys, mergeDeep, throwing} from 'rescape-ramda';
+import {moveToKeys, mergeDeep, reqPathThrowing} from 'rescape-ramda';
 import PropTypes from 'prop-types';
 import {v} from 'rescape-validate';
-
-const {reqPath} = throwing;
 
 export const applyDefaultStyles = v((defaultConfig, styles) =>
     mergeDeep(
@@ -44,7 +42,7 @@ export const applyDefaultRegion = v((defaultConfig, regions) =>
         'default',
         // Keys of obj or string indexes of array
         R.keys(regions),
-        reqPath(['regions'], defaultConfig)
+        reqPathThrowing(['regions'], defaultConfig)
       ),
       regions
     ),
@@ -74,10 +72,10 @@ export const applyDefaultRegion = v((defaultConfig, regions) =>
  * @returns {Object} The "modified" defaultConfig.users merged into the defaultUserKeyToUserObjs
  */
 export const mapDefaultUsers = v((defaultConfig, defaultUserKeyToUserObjs) => {
-    const defaultUsers = reqPath(['users'], defaultConfig);
+    const defaultUsers = reqPathThrowing(['users'], defaultConfig);
     return R.mapObjIndexed(
       (users, defaultUserKey) => R.map(
-        user => mergeDeep(reqPath([defaultUserKey], defaultUsers), user),
+        user => mergeDeep(reqPathThrowing([defaultUserKey], defaultUsers), user),
         users
       ),
       defaultUserKeyToUserObjs
@@ -123,7 +121,7 @@ export const applyRegionsToUsers = (regions, users) =>
 
 export const wrapLocationsWithFeatures = (locations, locationFeatures) =>
   R.mapObjIndexed((locationsByType, locationType) =>
-      R.set(R.lensProp('geojson'), reqPath(), locationType),
+      R.set(R.lensProp('geojson'), reqPathThrowing(), locationType),
     locations
   );
 

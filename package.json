@@ -59,7 +59,7 @@
     "graphql-geojson": "^1.0.0",
     "graphql-tools": "^2.19.0",
     "immutable": "^4.0.0-rc.9",
-    "jsdom": "^11.6.1",
+    "jsdom": "^11.6.2",
     "longjohn": "^0.2.12",
     "memoize-immutable": "^3.0.0",
     "moment": "^2.20.1",
@@ -70,7 +70,7 @@
     "ramda": "^0.25.0",
     "react-apollo": "^2.0.4",
     "rebass": "^1.0.4",
-    "rescape-ramda": "^1.4.15",
+    "rescape-ramda": "^1.4.16",
     "rescape-validate": "^1.2.5",
     "reselect": "^3.0.1"
   },
