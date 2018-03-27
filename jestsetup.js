@@ -12,7 +12,11 @@
 import * as R from 'ramda'
 import {JSDOM} from 'jsdom';
 
-global.navigator = {};
+global.navigator = {
+  userAgent: 'node.js'
+};
+
+
 
 // jsdom, window, document, navigator setup
 // http://airbnb.io/enzyme/docs/guides/jsdom.html

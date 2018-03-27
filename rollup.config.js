@@ -18,6 +18,7 @@ if (env === 'es' || env === 'cjs') {
   config.external = ['symbol-observable'];
   config.plugins.push(
     babel({
+      preferBuiltins: true,
       runtimeHelpers: true,
       plugins: ['external-helpers']
     })

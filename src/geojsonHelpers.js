@@ -15,6 +15,7 @@ const regex = /(.+)\/\d+/;
 // Get the feature by type based on its id
 // featuresByType:: Feature f = [f] -> <String, [f]>
 export const featureByType = reduceFeaturesBy(feature => R.match(regex, feature.id)[1]);
+const FEATURES = 'features';
 
 /**
  * Split geojson by feature type
@@ -26,10 +27,11 @@ export const featureByType = reduceFeaturesBy(feature => R.match(regex, feature.
 export const geojsonByType = osm => {
   return R.map(
     // Make a copy of the geojson with the typed features
-    featureOfType => R.set(R.lensProp('features'), featureOfType, osm),
-    featureByType(R.pathOr([], ['features'], osm)) // Reduce by feature type
+    featureOfType => R.set(R.lensProp(FEATURES), featureOfType, osm),
+    featureByType(R.pathOr([], [FEATURES], osm)) // Reduce by feature type
   );
 };
+
 
 /**
  * Fetch each square of transit and merge the results by feature id
@@ -39,4 +41,4 @@ export const geojsonByType = osm => {
  * @param {Feature[]} r The right side Features
  * @returns {Object} The concatted features
  */
-export const concatFeatures = (k, l, r) => k === 'features' ? R.concat(l, r) : r;
+export const concatFeatures = (k, l, r) => k === FEATURES ? R.concat(l, r) : r;
