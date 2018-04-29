@@ -49,7 +49,7 @@
     "@turf/rhumb-distance": "^6.0.1",
     "@turf/transform-translate": "^5.1.5",
     "apollo-client-preset": "^1.0.8",
-    "d3-sankey": "../d3-sankey/",
+    "d3-sankey": "https://github.com/calocan/d3-sankey.git",
     "d3-scale": "^2.0.0",
     "data.either": "^1.5.1",
     "graphql": "git://github.com/graphql/graphql-js.git#npm",

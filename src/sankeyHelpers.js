@@ -18,15 +18,16 @@ import bboxPolygon from '@turf/bbox-polygon';
 import center from '@turf/center';
 import rhumbDistance from '@turf/rhumb-distance';
 import rhumbBearing from '@turf/rhumb-bearing';
-import transformTranslate from '@turf/transform-translate'
-import {scaleLinear} from 'd3-scale'
-import {reqStrPathThrowing} from 'rescape-ramda'
+import transformTranslate from '@turf/transform-translate';
+import {scaleLinear} from 'd3-scale';
+import parseDecimalNumber from 'parse-decimal-number'
+import {reqStrPathThrowing} from 'rescape-ramda';
 
 /**
  * This needs to be debugged
  * @param {Object} opt Mapbox object that has project function
  * @param {Number} width The width of the containing svg element
- * @param {Number} height The height of the containing svg element
+ * @param {Number} height The height of the cankentaining svg element
  * @param {Number} nodeWidth
  * @param {Number} nodePadding
  * @param {Boolean} [geospatial] Default to true. If true use geospatial positions for the nodes, otherwise use
@@ -37,13 +38,13 @@ import {reqStrPathThrowing} from 'rescape-ramda'
  * nodes array and must have a value indicating the weight of the headerLink
  * @returns {null}
  */
-export const sankeyGenerator = asUnaryMemoize(({width, height, nodeWidth, nodePadding, geospatialPositioner}, sankeyData) => {
+export const sankeyGenerator = asUnaryMemoize(({width, height, nodeWidth, nodePadding, geospatialPositioner, valueKey}, sankeyData) => {
   // d3 mutates the data
   const data = R.clone(sankeyData);
   // Normalize heights to range from 10 pixes to 100 pixels independent of the zoom
   const heightNormalizer = ({minValue, maxValue}, node) => scaleLinear()
     .domain([minValue, maxValue])
-    .range([10, 100])(node.value);
+    .range([10, 100])(parseDecimalNumber(reqStrPathThrowing(valueKey, node)));
 
   // Create a sankey generator
   const sankeyGenerator = sankey()
@@ -125,23 +126,23 @@ export const sankeyGeospatialTranslate = R.curry((opt, featureNode) => {
       // Next generate a feature from the lat/lon rectangle of the nodes
       nodeToFeature,
       // First unproject the node from pixels to lat/lon
-      unprojectNode(opt),
-    )(featureNode)
+      unprojectNode(opt)
+    )(featureNode);
 
-    const boundingBox = bbox(feature)
+    const boundingBox = bbox(feature);
     // Project it to two x,y coordinates
-    const bounds = projectBoundingBox(opt, boundingBox)
+    const bounds = projectBoundingBox(opt, boundingBox);
 
     return {
       // Provide various ways to render the node
       pointData: {
         feature: resolveSvgPoints(opt, feature),
         bbox: resolveSvgPoints(opt, bboxPolygon(boundingBox)),
-        center: resolveSvgPoints(center(feature)),
+        center: resolveSvgPoints(center(feature))
       },
       // x0, y0, x1, y1
       ...bounds
-    }
+    };
   }
 );
 
@@ -158,7 +159,7 @@ export const projectBoundingBox = R.curry((opt, bbox) => {
   const [[x0, y0], [x1, y1]] = [opt.project([_x0, _y0]), opt.project([_x1, _y1])];
   // Flip the ys. bbox geospatially will have y0 < y1 (geospatial increases up (north),
   // but as pixels increase from top to bottom of the screen
-  return {x0, y0: y1, x1, y1: y0}
+  return {x0, y0: y1, x1, y1: y0};
 });
 
 /**
@@ -173,7 +174,7 @@ export const nodeToFeature = node =>
   resolveFeatureFromExtent(
     R.map(reqStrPathThrowing(R.__, node), ['x0', 'y0']),
     R.map(reqStrPathThrowing(R.__, node), ['x1', 'y1'])
-  )
+  );
 
 /**
  * Given a d3 Sankey node and its feature representation (as created by nodeToFeature) transform
@@ -190,10 +191,53 @@ export const nodeToFeature = node =>
  */
 export const translateNodeFeature = R.curry((sourceFeature, targetFeature) => {
   // Translate from the feature center
-  const moveFromCenterPoint = center(sourceFeature)
+  const moveFromCenterPoint = center(sourceFeature);
   // Translate its position to here
-  const moveToCenterPoint = center(targetFeature)
-  const distance = rhumbDistance(moveFromCenterPoint, moveToCenterPoint)
-  const bearing = rhumbBearing(moveFromCenterPoint, moveToCenterPoint)
-  return transformTranslate(sourceFeature, distance, bearing)
+  const moveToCenterPoint = center(targetFeature);
+  const distance = rhumbDistance(moveFromCenterPoint, moveToCenterPoint);
+  const bearing = rhumbBearing(moveFromCenterPoint, moveToCenterPoint);
+  return transformTranslate(sourceFeature, distance, bearing);
 });
+
+/**
+ * Builds the link stages from the given stages based on the order of the stages
+ * e.g. [a, b, c] -> {source: a, target: b}, {source: b, target: c}
+ * @param {[String]} stages List of Sankey stages
+ * @return {*} A list of objects where the chained stages are sources and targets. key and name are also added
+ */
+export const makeLinkStages = stages => R.zipWith(
+  (source, target) => ({
+    key: R.join('-', R.map(R.prop('key'), [source, target])),
+    name: R.join(' -> ', R.map(R.prop('name'), [source, target])),
+    source,
+    target
+  }),
+  R.slice(0, -1, stages), R.slice(1, Infinity, stages)
+);
+
+/**
+ * Resolves the stage from the target of the node
+ * @param {String} stageKey The stage name
+ * @param {Object} d The node to resolve the link stage of
+ * @return {function(*)}
+ */
+export const resolveLinkStage = R.curry((stageKey, d) => d.target[stageKey]);
+
+/**
+ * Resolves the stage from the target of the node
+ * @param {String} stageKey The stage name
+ * @param {Object} d The node to resolve the link stage of
+ * @return {function(*): *}
+ */
+export const resolveNodeStage = R.curry((stageKey, d) => d => d[stageKey]);
+
+/**
+ * Resolve the node name of the given name
+ * If the location of the node ahs been generalized add it to the name so users know
+ * it isn't in an exact location.
+ * TODO this is totally specific to Belgium. Update
+ * @param {String} valueKey The node key to use for the name value
+ * @param {Object} d The node
+ * @return {string}
+ */
+export const resolveNodeName = R.curry((valueKey, d) => `${d.siteName} ${d.isGeneralized ? ' (general location)' : ''}\n${d[valueKey]} t`);
