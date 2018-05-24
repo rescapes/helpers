@@ -1606,15 +1606,6 @@ d3-path@1:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/d3-path/-/d3-path-1.0.5.tgz#241eb1849bd9e9e8021c0d0a799f8a0e8e441764"
 
-"d3-sankey@https://github.com/calocan/d3-sankey.git":
-  version "0.7.1"
-  resolved "https://github.com/calocan/d3-sankey.git#a615b5951cf3c3612a3a1d63a6cba23110586f30"
-  dependencies:
-    d3-array "1"
-    d3-collection "1"
-    d3-scale "^1.0.7"
-    d3-shape "^1.2.0"
-
 d3-scale@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-1.0.7.tgz#fa90324b3ea8a776422bd0472afab0b252a0945d"
@@ -4690,6 +4681,15 @@ requizzle@~0.2.1:
   resolved "https://registry.yarnpkg.com/requizzle/-/requizzle-0.2.1.tgz#6943c3530c4d9a7e46f1cddd51c158fc670cdbde"
   dependencies:
     underscore "~1.6.0"
+
+rescape-geospatial-sankey@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/rescape-geospatial-sankey/-/rescape-geospatial-sankey-0.7.1.tgz#e46ba18f1e211a2ff42a097bfd2138abdbb27c2e"
+  dependencies:
+    d3-array "1"
+    d3-collection "1"
+    d3-scale "^1.0.7"
+    d3-shape "^1.2.0"
 
 rescape-ramda@^1.4.38:
   version "1.4.38"

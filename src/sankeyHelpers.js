@@ -10,7 +10,7 @@
  */
 
 import * as R from 'ramda';
-import {sankey} from 'd3-sankey';
+import {sankey} from 'rescape-geospatial-sankey';
 import {asUnaryMemoize} from './selectorHelpers';
 import {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers';
 import bbox from '@turf/bbox';
