@@ -1,6 +1,6 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.31",
+  "version": "1.1.32",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
   "module": "es/index.js",
