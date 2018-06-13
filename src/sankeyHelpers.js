@@ -20,8 +20,10 @@ import rhumbDistance from '@turf/rhumb-distance';
 import rhumbBearing from '@turf/rhumb-bearing';
 import transformTranslate from '@turf/transform-translate';
 import {scaleLinear} from 'd3-scale';
-import parseDecimalNumber from 'parse-decimal-number'
+import parseDecimalNumber from 'parse-decimal-number';
 import {reqStrPathThrowing} from 'rescape-ramda';
+import {v} from 'rescape-validate';
+import PropTypes from 'prop-types';
 
 /**
  * This needs to be debugged
@@ -38,7 +40,7 @@ import {reqStrPathThrowing} from 'rescape-ramda';
  * nodes array and must have a value indicating the weight of the headerLink
  * @returns {null}
  */
-export const sankeyGenerator = asUnaryMemoize(({width, height, nodeWidth, nodePadding, geospatialPositioner, valueKey}, sankeyData) => {
+export const sankeyGenerator = v(asUnaryMemoize(({width, height, nodeWidth, nodePadding, geospatialPositioner, valueKey}, sankeyData) => {
   // d3 mutates the data
   const data = R.clone(sankeyData);
   // Normalize heights to range from 10 pixes to 100 pixels independent of the zoom
@@ -86,7 +88,20 @@ export const sankeyGenerator = asUnaryMemoize(({width, height, nodeWidth, nodePa
   const update = {links: data.links, nodes: data.nodes};
   sankeyGenerator(update);
   return update;
-});
+}), [
+  ['_first', PropType.Shape({
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    nodeWidth: PropTypes.number.isRequired,
+    nodePadding: PropTypes.number.isRequired,
+    geospatialPositioner: PropTypes.func.isRequired,
+    valueKey: PropTypes.string.isRequired
+  }).isRequired],
+  ['sankeyData', PropType.Shape({
+    nodes: PropTypes.array.isRequired,
+    links: PropTypes.array.isRequired,
+  })]
+], 'sankeyGenerator');
 
 /***
  * Unprojects a node's x0, y0, x1, and y1 by unprojecting from pixels to lat/lon

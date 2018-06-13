@@ -20,6 +20,11 @@ import {
   mergeStateAndProps, STATUS, status
 } from './selectorHelpers';
 
+import {
+  googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString,
+  turfPointToLocation, googleLocationToLocation
+} from './locationHelpers'
+
 export {
   featureByType,
   geojsonByType,
@@ -56,6 +61,12 @@ export {
   STATUS,
   status,
   makeInnerJoinByLensThenFilterSelector,
-  asUnaryMemoize
+  asUnaryMemoize,
+  googleLocationToTurfPoint,
+  locationToGoogleFunctionalLocation,
+  locationToTurfPoint,
+  originDestinationToLatLngString,
+  turfPointToLocation,
+  googleLocationToLocation
 };
 

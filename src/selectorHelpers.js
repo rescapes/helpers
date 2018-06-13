@@ -104,8 +104,8 @@ export const makeInnerJoinByLensThenFilterSelector = (innerJoinPredicate, predic
 /***
  * Memomizes a function to a single argument function so that we can always NamedTupleMap for the cache.
  * In order for this to work all objects have to be flattened into one big object. This Cache won't
- * accept inner objects that have change. So three args like
- * {a: {wombat: 1, emu: 2}}, {b: {caracal: 1, serval: 2}}, 'hamster' are converted to
+ * accept inner objects that have changed. So the function coverts three args like
+ * {a: {wombat: 1, emu: 2}}, {b: {caracal: 1, serval: 2}}, 'hamster' to
  * {arg1.a: {wombat: 1, emu: 2}, arg2.b: {caracal: 1, serval: 2}, arg3: 'hamster}
  * Thus it's okay for the outer wrappers to change but the inner objects must be === identical, such as the
  * womat and caracal objects.
@@ -116,8 +116,8 @@ export const makeInnerJoinByLensThenFilterSelector = (innerJoinPredicate, predic
  * @returns {Function} A function that expects the same args as func
  */
 export const asUnaryMemoize = func => {
-  // Function that converts immutable args to args
-  const fromSingleArgFunc = (arg) => func(
+  // Function that converts flat args to original args
+  const fromSingleArgFunc = (flatArgs) => func(
     // Sort in order arg1, arg2, ... and take values
     ...R.values(
       R.fromPairs(
@@ -129,7 +129,7 @@ export const asUnaryMemoize = func => {
                 return R.set(R.lensPath(R.split('.', key)), value, acc);
               },
               {},
-              R.toPairs(arg))
+              R.toPairs(flatArgs))
           )
         )
       )

@@ -68,13 +68,18 @@ describe('reselectHelpers', () => {
 
   test('asUnaryMemoize', () => {
     let i = 0
+    // The func increments i in order to prove that the function is memoized and only called when arguments change
     const func = (apple, orange, universe) => {
       return {apple, orange, i: i++}
     };
     const memoizedFunc = asUnaryMemoize(func);
     const crazy = {crazy: 888}
     const now = memoizedFunc(1, 2, crazy)
+    // This should hit the cache and not call the function
     const later = memoizedFunc(1, 2, crazy)
     expect(now).toEqual(later)
+    // This should call the function anew
+    const muchLater = memoizedFunc(1, 2, {crazy: 889})
+    expect(muchLater).toEqual(R.merge(now, {i:1}))
   });
 });

@@ -17,7 +17,7 @@ describe('testHelpers', () => {
   test('expectTask', () => {
     expectTask(task(({reject, resolve}) => resolve('apple'))).resolves.toEqual('apple');
     expectTask(task(({reject, resolve}) => {
-      throw new Error('snapple');
+      reject(new Error('snapple'));
     })).rejects.toEqual(new Error('snapple'));
   });
 
