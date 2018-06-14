@@ -89,7 +89,7 @@ export const sankeyGenerator = v(asUnaryMemoize(({width, height, nodeWidth, node
   sankeyGenerator(update);
   return update;
 }), [
-  ['_first', PropType.Shape({
+  ['_first', PropTypes.Shape({
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     nodeWidth: PropTypes.number.isRequired,
@@ -97,7 +97,7 @@ export const sankeyGenerator = v(asUnaryMemoize(({width, height, nodeWidth, node
     geospatialPositioner: PropTypes.func.isRequired,
     valueKey: PropTypes.string.isRequired
   }).isRequired],
-  ['sankeyData', PropType.Shape({
+  ['sankeyData', PropTypes.Shape({
     nodes: PropTypes.array.isRequired,
     links: PropTypes.array.isRequired,
   })]
