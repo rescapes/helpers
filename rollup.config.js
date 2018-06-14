@@ -2,45 +2,65 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import replace from 'rollup-plugin-replace';
 import uglify from 'rollup-plugin-uglify';
-import json from 'rollup-plugin-json';
-import commonjs from 'rollup-plugin-commonjs';
+import autoExternal from 'rollup-plugin-auto-external';
 
 const env = process.env.NODE_ENV;
 const config = {
-  input: 'src/index.js',
+  input: [
+    'src/index.js',
+    'src/configHelpers.js',
+    'src/geojsonHelpers.js',
+    'src/geospatialHelpers.js',
+    'src/immutableHelpers.js',
+    'src/locationHelpers.js',
+    'src/sankeyHelpers.js',
+    'src/selectorHelpers.js',
+    'src/svgHelpers.js',
+    'src/testHelpers.js',
+    'src/timeHelpers.js'
+  ],
   plugins: [
-    json()
-  ]
+    // Automatically exclude dependencies and peerDependencies from cjs and es builds, (and excludes
+    // peerDependencies from all builds)
+    autoExternal()
+  ],
+  experimentalCodeSplitting: true
 };
 
 if (env === 'es' || env === 'cjs') {
-  config.output = {format: env};
-  config.external = ['symbol-observable'];
+  config.output = {
+    dir: env,
+    format: env,
+    indent: false,
+    sourcemap: 'inline'
+  };
+  // folktale needs to be explicitly external because rollup can't
+  // match folktale to folktale/concurrency/task
+  // enzyme and enzyme-wait are dev-dependencies that are used by componentTestHelpers, so mark external here
+  config.external = ['symbol-observable', 'folktale/concurrency/task', 'enzyme', 'enzyme-wait']
   config.plugins.push(
     babel({
-      preferBuiltins: true,
-      runtimeHelpers: true,
+      exclude: ['node_modules/**'],
       plugins: ['external-helpers']
     })
   );
 }
 
 if (env === 'development' || env === 'production') {
-  config.output = {format: 'umd'};
-  config.name = 'Umd';
+  config.output = {
+    dir: 'umd',
+    format: 'umd',
+    name: 'Umd',
+    indent: false
+  };
   config.plugins.push(
     nodeResolve({
-      jsnext: true,
-      main: true,
-      browser: true,
+      jsnext: true
     }),
     babel({
-      runtimeHelpers: true,
       exclude: 'node_modules/**',
       plugins: ['external-helpers']
     }),
-    // This must come after babel, else spread operator doesn't work!
-    commonjs(),
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
     })
