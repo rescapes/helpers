@@ -24,7 +24,7 @@ export const locationToGoogleFunctionalLocation = location => ({lat: () => locat
  * @param {Object} location with lat, lng
  * @return {{lon: *, lat: *}}
  */
-export const googleLocationToTurfPoint = location => point(...R.props(['lng', 'lat'], location));
+export const googleLocationToTurfPoint = location => point(R.props(['lng', 'lat'], location));
 
 /**
  * Convert a location to a Turf Point with lat, lon
