@@ -9,7 +9,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Either from 'data.either';
+import * as Result from 'folktale/result';
 import {filterWithKeys, mapPropValueAsIndex, mergeDeep} from 'rescape-ramda';
 import * as R from 'ramda';
 import memoize from 'memoize-immutable';
@@ -48,7 +48,7 @@ export const mergeStateAndProps = (state, props) => mergeDeep(state, props);
  *
  * The predicate checks properties appended to the userSettings version of the data, such as
  * checking for keys like 'isSelected' or 'willDelete' or 'willAdd'
- * @param {Function} innerJoinPedicate Predicate to determine whether each item targeted by stateLens and propLens
+ * @param {Function} innerJoinPredicate Predicate to determine whether each item targeted by stateLens and propLens
  * @param {Function} predicate Predicate that expects each merged value of the container of the lens
  * @param {Function} stateLens Ramda lens to winnow in on the property of the state to be merged with props and then filtered
  * @param {Function} propsLens Ramda lens to winnow in on the props to merge with the target of the state lens
@@ -64,41 +64,42 @@ export const mergeStateAndProps = (state, props) => mergeDeep(state, props);
  * props: {foos: {bars: {bar1: {id: 'bar1', isSelected: true}, bar2: {id: 'bar2'}}}}
  * returns: {bar1: {id: 'bar1', name: 'Bar 1' isSelected: true}}
  */
-export const makeInnerJoinByLensThenFilterSelector = (innerJoinPredicate, predicate, stateLens, propsLens) => (state, props) =>
-  filterWithKeys(
-    (value, key) => {
-      return predicate(
-        value
-      );
-    },
+export const makeInnerJoinByLensThenFilterSelector = (innerJoinPredicate, predicate, stateLens, propsLens) => (state, props) => {
+  return R.compose(
     // Combine the lens focused userValue and state value if they pass the innerJoinPredicate
+    filterWithKeys(
+      (value, key) => {
+        return predicate(
+          value
+        );
+      }
+    ),
     R.map(
-      // Finally extract the either value
-      either => either.get(),
-      R.filter(
-        // Filter for Right
-        either => either.isRight,
-        R.mergeWith(
-          (l, r) => R.ifElse(
-            // Do they pass the inner predicate? (use .value since Left.get() isn't allowed)
-            ([l, r]) => R.apply(innerJoinPredicate, [l.value, r.value]),
-            // Yes pass, convert to Right
-            ([l, r]) => Either.Right(R.apply(mergeDeep, [l.value, r.value])),
-            // Fail, empty Left
-            ([l, r]) => Either.Left()
-          )([l, r]),
-          ...R.map(
-            // Make sure each is keyed by id before merging
-            // Mark everything as Either.Left initially. Only things that match and pass the innerJoin predicate
-            // will get converted to Right
-            items => R.map(Either.Left, mapPropValueAsIndex('id', items)),
-            [R.view(stateLens, state), R.view(propsLens, props)]
-          )
-        )
-      )
+      // Finally extract the result value
+      result => result.unsafeGet()
+    ),
+    R.filter(
+      // Filter for Result.Ok
+      result => Result.Ok.hasInstance(result)
+    ),
+    args => R.mergeWith(
+      (l, r) => R.ifElse(
+        // Do they pass the inner predicate? (use .value since Left.get() isn't allowed)
+        ([l, r]) => R.apply(innerJoinPredicate, [l.value, r.value]),
+        // Yes pass, convert to Result.Ok
+        ([l, r]) => Result.Ok(R.apply(mergeDeep, [l.value, r.value])),
+        // Fail, empty Left
+        ([l, r]) => Result.Error()
+      )([l, r]),
+      ...args),
+    R.map(
+      // Make sure each is keyed by id before merging
+      // Mark everything as Result.Error initially. Only things that match and pass the innerJoin predicate
+      // will get converted to Result.Ok
+      items => R.map(Result.Error, mapPropValueAsIndex('id', items))
     )
-  );
-
+  )([R.view(stateLens, state), R.view(propsLens, props)]);
+};
 
 
 /***

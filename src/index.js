@@ -7,7 +7,7 @@ import {
 } from './sankeyHelpers';
 import {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers';
 import {
-  eitherToPromise,
+  resultToPromise,
   expectTask, expectTaskRejected
 } from './testHelpers';
 import {toTimeString} from './timeHelpers';
@@ -49,7 +49,7 @@ export {
   resolveFeatureFromExtent,
   expectTask,
   expectTaskRejected,
-  eitherToPromise,
+  resultToPromise,
   toTimeString,
   applyDefaultRegion,
   mapDefaultUsers,
