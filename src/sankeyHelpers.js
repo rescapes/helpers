@@ -40,13 +40,18 @@ import PropTypes from 'prop-types';
  * nodes array and must have a value indicating the weight of the headerLink
  * @returns {null}
  */
-export const sankeyGenerator = v(asUnaryMemoize(({width, height, nodeWidth, nodePadding, geospatialPositioner, valueKey}, sankeyData) => {
+export const sankeyGenerator = asUnaryMemoize(v(({width, height, nodeWidth, nodePadding, geospatialPositioner, valueKey}, sankeyData) => {
   // d3 mutates the data
   const data = R.clone(sankeyData);
   // Normalize heights to range from 10 pixes to 100 pixels independent of the zoom
-  const heightNormalizer = ({minValue, maxValue}, node) => scaleLinear()
-    .domain([minValue, maxValue])
-    .range([10, 100])(parseDecimalNumber(reqStrPathThrowing(valueKey, node)));
+  const heightNormalizer = ({minValue, maxValue}, node) => {
+    const normalized = scaleLinear()
+      .domain([minValue, maxValue])
+      .range([10, 100])(parseDecimalNumber(reqStrPathThrowing('value', node)));
+    if (!normalized.y1)
+      throw new Error(`Failed to normalize y1 using minValue: ${minValue}, maxValue: ${maxValue} and node value: ${parseDecimalNumber(reqStrPathThrowing('value', node))}`);
+    return normalized;
+  };
 
   // Create a sankey generator
   const sankeyGenerator = sankey()
@@ -88,7 +93,7 @@ export const sankeyGenerator = v(asUnaryMemoize(({width, height, nodeWidth, node
   const update = {links: data.links, nodes: data.nodes};
   sankeyGenerator(update);
   return update;
-}), [
+}, [
   ['_first', PropTypes.shape({
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -99,9 +104,9 @@ export const sankeyGenerator = v(asUnaryMemoize(({width, height, nodeWidth, node
   }).isRequired],
   ['sankeyData', PropTypes.shape({
     nodes: PropTypes.array.isRequired,
-    links: PropTypes.array.isRequired,
+    links: PropTypes.array.isRequired
   })]
-], 'sankeyGenerator');
+], 'sankeyGenerator'));
 
 /***
  * Unprojects a node's x0, y0, x1, and y1 by unprojecting from pixels to lat/lon
