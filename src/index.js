@@ -1,10 +1,7 @@
 import {concatFeatures, featureByType, geojsonByType} from './geojsonHelpers';
 import {calculateDistance} from './geospatialHelpers';
 import {copy, fromImmutable, toImmutable, toImmutableKeyedByProp, toJS} from './immutableHelpers';
-import {
-  nodeToFeature, projectBoundingBox, sankeyGenerator, sankeyGeospatialTranslate, translateNodeFeature,
-  unprojectNode, resolveNodeStage, resolveLinkStage, makeLinkStages, resolveNodeName
-} from './sankeyHelpers';
+
 import {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers';
 import {
   resultToPromise,
@@ -35,13 +32,11 @@ export {
   fromImmutable,
   toImmutableKeyedByProp,
   copy,
-  sankeyGenerator,
   resolveLinkStage,
   resolveNodeStage,
   makeLinkStages,
   resolveNodeName,
   unprojectNode,
-  sankeyGeospatialTranslate,
   projectBoundingBox,
   nodeToFeature,
   translateNodeFeature,

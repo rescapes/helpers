@@ -13,7 +13,6 @@ const config = {
     'src/geospatialHelpers.js',
     'src/immutableHelpers.js',
     'src/locationHelpers.js',
-    'src/sankeyHelpers.js',
     'src/selectorHelpers.js',
     'src/svgHelpers.js',
     'src/testHelpers.js',
