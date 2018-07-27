@@ -1,59 +1,29 @@
-import {concatFeatures, featureByType, geojsonByType} from './geojsonHelpers';
-import {calculateDistance} from './geospatialHelpers';
-import {copy, fromImmutable, toImmutable, toImmutableKeyedByProp, toJS} from './immutableHelpers';
+export {concatFeatures, featureByType, geojsonByType} from './geojsonHelpers';
+export {calculateDistance} from './geospatialHelpers';
+export {copy, fromImmutable, toImmutable, toImmutableKeyedByProp, toJS} from './immutableHelpers';
 
-import {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers';
-import {
+export {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers';
+export {
   resultToPromise,
   expectTask, expectTaskRejected
 } from './testHelpers';
-import {toTimeString} from './timeHelpers';
-import {
+
+export {toTimeString} from './timeHelpers';
+export {
   applyDefaultRegion, applyRegionsToUsers, firstUserLens, mapDefaultUsers,
   wrapLocationsWithFeatures, applyDefaultStyles
 } from './configHelpers';
-import {
+
+export {
   asUnaryMemoize,  makeInnerJoinByLensThenFilterSelector,
   mergeStateAndProps, STATUS, status
 } from './selectorHelpers';
 
-import {
+export {
   googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString,
   turfPointToLocation, googleLocationToLocation
 } from './locationHelpers'
 
 export {
-  featureByType,
-  geojsonByType,
-  concatFeatures,
-  calculateDistance,
-  toImmutable,
-  toJS,
-  fromImmutable,
-  toImmutableKeyedByProp,
-  copy,
-  resolveSvgPoints,
-  resolveFeatureFromExtent,
-  expectTask,
-  expectTaskRejected,
-  resultToPromise,
-  toTimeString,
-  applyDefaultRegion,
-  mapDefaultUsers,
-  applyRegionsToUsers,
-  wrapLocationsWithFeatures,
-  applyDefaultStyles,
-  firstUserLens,
-  mergeStateAndProps,
-  STATUS,
-  status,
-  makeInnerJoinByLensThenFilterSelector,
-  asUnaryMemoize,
-  googleLocationToTurfPoint,
-  locationToGoogleFunctionalLocation,
-  locationToTurfPoint,
-  originDestinationToLatLngString,
-  turfPointToLocation,
-  googleLocationToLocation
-};
-
+  createReduxStore
+} from './storeHelpers'
