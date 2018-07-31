@@ -16,7 +16,8 @@ const config = {
     'src/selectorHelpers.js',
     'src/svgHelpers.js',
     'src/testHelpers.js',
-    'src/timeHelpers.js'
+    'src/timeHelpers.js',
+    'src/storeHelpers.js'
   ],
   plugins: [
     // Automatically exclude dependencies and peerDependencies from cjs and es builds, (and excludes
@@ -35,7 +36,7 @@ if (env === 'es' || env === 'cjs') {
   };
   // folktale needs to be explicitly external because rollup can't
   // match folktale to folktale/concurrency/task
-  config.external = ['symbol-observable', 'folktale/concurrency/task', 'folktale/result'],
+  config.external = ['symbol-observable', 'folktale/concurrency/task', 'folktale/result', 'redux-devtools-extension'],
   config.plugins.push(
     babel({
       exclude: ['node_modules/**'],

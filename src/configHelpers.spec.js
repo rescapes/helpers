@@ -20,6 +20,7 @@
 import {applyDefaultRegion, mapDefaultUsers, keysAsIdObj, applyRegionsToUsers} from './configHelpers';
 import * as R from 'ramda';
 import {reqPathThrowing} from 'rescape-ramda';
+import {parseApiUrl} from 'configHelpers';
 
 const APP_ADMIN = 'app_admin';
 const REGION_MANAGER = 'region_manager';
@@ -138,4 +139,11 @@ describe('configHelpers', () => {
       }
     );
   });
+
+  test('parseApiUrl', () => {
+    expect(parseApiUrl({ protocol: 'https', host: 'googoo.dolls', port: 1998, path: '/iris/' })).toEqual(
+      'https://googoo.dolls:1998/iris/'
+    )
+  })
+
 });

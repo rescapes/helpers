@@ -10,7 +10,7 @@
  */
 
 import * as R from 'ramda';
-import {moveToKeys, mergeDeep, reqPathThrowing} from 'rescape-ramda';
+import {moveToKeys, mergeDeep, reqPathThrowing, reqStrPathThrowing} from 'rescape-ramda';
 import PropTypes from 'prop-types';
 import {v} from 'rescape-validate';
 
@@ -138,3 +138,17 @@ export const firstUserLens = obj => R.lensPath(
     )
   ]
 );
+
+/**
+ * Parse the apiSettings into a URL
+ * @param {Object} apiSettings Contains the following
+ * @param {String} apiSettings.protocol Required protocol
+ * @param {String} apiSettings.host Required hostname or IP
+ * @param {String} apiSettings.port Required port
+ * @param {String} apiSettings.path Required path beginning with /
+ * @return {string} THe complete URL
+ */
+export const parseApiUrl = apiSettings => {
+  const req = reqStrPathThrowing(R.__, apiSettings);
+  return `${req('protocol')}://${req('host')}:${req('port')}${req('path')}`;
+};
