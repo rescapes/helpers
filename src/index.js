@@ -11,7 +11,7 @@ export {
 export {toTimeString} from './timeHelpers';
 export {
   applyDefaultRegion, applyRegionsToUsers, firstUserLens, mapDefaultUsers,
-  wrapLocationsWithFeatures, applyDefaultStyles
+  wrapLocationsWithFeatures, applyDefaultStyles, keysAsIdObj, parseApiUrl
 } from './configHelpers';
 
 export {
