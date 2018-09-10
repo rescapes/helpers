@@ -10,7 +10,7 @@
  */
 
 import * as R from 'ramda';
-import {point} from '@turf/helpers'
+import {point, lineString} from '@turf/helpers'
 
 /***
  * Convert a location to what Google sometimes uses, with lat(), lng()
@@ -20,16 +20,24 @@ import {point} from '@turf/helpers'
 export const locationToGoogleFunctionalLocation = location => ({lat: () => location[0], lng: () => location[1]});
 
 /**
- * Convert a Google location to a Turf Point with lat, lon
+ * Convert a Google location to a Turf Point
  * @param {Object} location with lat, lng
- * @return {{lon: *, lat: *}}
+ * @return {Object} { geometry : {type: "Point", coordinates: Array(2)} properties : {} type : "Feature" }
  */
 export const googleLocationToTurfPoint = location => point(R.props(['lng', 'lat'], location));
 
 /**
+ * Convert a Google location to a Turf LineString
+ * @param {[Object]} locations with lat, lng
+ * @return {Object} { geometry : {type: "LineString", coordinates: Array(2)} properties : {} type : "Feature" }
+ */
+export const googleLocationToTurfLineString = locations => lineString(R.map(R.props(['lng', 'lat']), locations));
+
+
+/**
  * Convert a location to a Turf Point with lat, lon
  * @param {[Number]} location a lat, lon
- * @return {{lon: *, lat: *}}
+ * @return {Object} { geometry : {type: "Point", coordinates: Array(2)} properties : {} type : "Feature" }
  */
 export const locationToTurfPoint = location => point(R.reverse(location));
 

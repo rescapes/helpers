@@ -11,7 +11,6 @@
 import thunk from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 import {applyMiddleware, compose, createStore} from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
 import createDebounce from 'redux-debounced';
 
 const loggerMiddleware = createLogger();

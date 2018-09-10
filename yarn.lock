@@ -2613,7 +2613,7 @@ from2@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
-fs-extra@7.0.0:
+fs-extra@7.0.0, fs-extra@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-7.0.0.tgz#8cc3f47ce07ef7b3593a11b9fb245f7e34c041d6"
   dependencies:
@@ -5303,10 +5303,6 @@ redux-debounced@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/redux-debounced/-/redux-debounced-0.5.0.tgz#4dde27a3e66ea428afe78215f30a27f22714605b"
 
-redux-devtools-extension@^2.13.5:
-  version "2.13.5"
-  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.5.tgz#3ff34f7227acfeef3964194f5f7fc2765e5c5a39"
-
 redux-logger@^3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
@@ -5586,6 +5582,45 @@ rescape-helpers@^1.1.49:
     rescape-validate "^1.2.10"
     reselect "^3.0.1"
 
+rescape-helpers@^1.1.57:
+  version "1.1.57"
+  resolved "https://registry.yarnpkg.com/rescape-helpers/-/rescape-helpers-1.1.57.tgz#925d1ca08509f2fa5c76ab5fe69f6c3774fe13b0"
+  dependencies:
+    "@turf/bbox" "^6.0.1"
+    "@turf/bbox-polygon" "^6.0.1"
+    "@turf/center" "^6.0.1"
+    "@turf/helpers" "^6.1.4"
+    "@turf/meta" "^6.0.2"
+    "@turf/rhumb-bearing" "^6.0.1"
+    "@turf/rhumb-distance" "^6.0.1"
+    "@turf/transform-translate" "^5.1.5"
+    apollo-client-preset "^1.0.8"
+    babel-plugin-transform-es2015-modules-commonjs-simple "^6.7.4"
+    d3-scale "^2.1.2"
+    folktale "^2.3.0"
+    graphql "git://github.com/graphql/graphql-js.git#npm"
+    graphql-geojson "^1.0.0"
+    graphql-tools "^3.1.1"
+    immutable "^4.0.0-rc.9"
+    jsdom "^12.0.0"
+    longjohn "^0.2.12"
+    memoize-immutable "^3.0.0"
+    moment "^2.22.2"
+    moment-duration-format "^2.2.2"
+    namedtuplemap "^1.0.0"
+    numeral "^2.0.6"
+    parse-decimal-number "^1.0.0"
+    prop-types "^15.6.2"
+    ramda "^0.25.0"
+    redux "^4.0.0"
+    redux-debounced "^0.5.0"
+    redux-logger "^3.0.6"
+    redux-thunk "^2.3.0"
+    rescape-geospatial-sankey "^0.7.13"
+    rescape-ramda "^1.4.52"
+    rescape-validate "^1.2.10"
+    reselect "^3.0.1"
+
 rescape-ramda@^1.4.50:
   version "1.4.50"
   resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.50.tgz#fc4fe2cf8c716b13cde855aecf2418c26e15439c"
@@ -5597,12 +5632,12 @@ rescape-ramda@^1.4.50:
     ramda-maybe "^0.18.0"
     util "^0.11.0"
 
-rescape-ramda@^1.4.51:
-  version "1.4.51"
-  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.51.tgz#3ff4ee542d23d5e8311168f61298ae3c11a4fe5d"
+rescape-ramda@^1.4.52:
+  version "1.4.52"
+  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.52.tgz#678ea5c62755cd20810a25c3baa35dc3cfe76de9"
   dependencies:
-    folktale "^2.1.0"
-    fs-extra "^6.0.1"
+    folktale "^2.3.0"
+    fs-extra "^7.0.0"
     ramda "^0.25.0"
     ramda-fantasy "^0.8.0"
     ramda-maybe "^0.18.0"
