@@ -20,7 +20,7 @@ export {
 } from './selectorHelpers';
 
 export {
-  googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString,
+  googleLocationToTurfPoint, googleLocationToTurfLineString, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString,
   turfPointToLocation, googleLocationToLocation
 } from './locationHelpers'
 
