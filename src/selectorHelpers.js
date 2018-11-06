@@ -118,38 +118,41 @@ export const makeInnerJoinByLensThenFilterSelector = (innerJoinPredicate, predic
  */
 export const asUnaryMemoize = func => {
   // Function that converts flat args to original args
-  const fromSingleArgFunc = (flatArgs) => func(
-    // Sort in order arg1, arg2, ... and take values
-    ...R.values(
-      R.fromPairs(
-        R.sortBy(
-          R.identity,
-          R.toPairs(
-            R.reduce(
-              (acc, [key, value]) => {
-                return R.set(R.lensPath(R.split('.', key)), value, acc);
-              },
-              {},
-              R.toPairs(flatArgs))
-          )
+  const fromSingleArgFunc = flatArgs => func(fromFlatArgs(...flatArgs))
+  const memoizedFunc = memoize(fromSingleArgFunc, {cache: new NamedTupleMap()});
+  return (...args) => {
+    return memoizedFunc(toFlatArgs(args));
+  }
+};
+
+export const toFlatArgs = (...args) => {
+  return R.fromPairs(
+    R.addIndex(R.chain)(
+      (arg, i) => {
+        return R.ifElse(
+          R.is(Object),
+          R.compose(R.values, R.mapObjIndexed((v, k) => [`arg${i}.${k}`, v])),
+          a => [[`arg${i}`, a]]
+        )(arg);
+      },
+      args)
+  );
+};
+
+export const fromFlatArgs = flatArgs =>
+  // Sort in order arg1, arg2, ... and take values
+  R.values(
+    R.fromPairs(
+      R.sortBy(
+        R.identity,
+        R.toPairs(
+          R.reduce(
+            (acc, [key, value]) => {
+              return R.set(R.lensPath(R.split('.', key)), value, acc);
+            },
+            {},
+            R.toPairs(flatArgs))
         )
       )
     )
   );
-  const memoizedFunc = memoize(fromSingleArgFunc, {cache: new NamedTupleMap()});
-  return (...args) => {
-    return memoizedFunc(
-      R.fromPairs(
-        R.addIndex(R.chain)(
-          (arg, i) => {
-            return R.ifElse(
-              R.is(Object),
-              R.compose(R.values, R.mapObjIndexed((v, k) => [`arg${i}.${k}`, v])),
-              a => [[`arg${i}`, a]]
-            )(arg);
-          },
-          args)
-      )
-    );
-  };
-};

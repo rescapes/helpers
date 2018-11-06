@@ -49,11 +49,17 @@ export const locationToTurfPoint = location => point(R.reverse(location));
 export const turfPointToLocation = point => R.reverse(R.take(2, point.geometry.coordinates));
 
 /***
- * Convert an object with lat lng keys to a 2 element array
+ * Convert an object with lat lng keys or functions to a 2 element array
  * @param location
  * @return {*}
  */
-export const googleLocationToLocation = location => R.props(['lat', 'lng'], location)
+export const googleLocationToLocation = location => R.map(
+  R.when(
+    R.is(Function),
+    f => f()
+  ),
+  R.props(['lat', 'lng'], location)
+);
 
 /***
  * Convert a location object into a lat,lng string

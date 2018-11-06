@@ -9,7 +9,10 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {googleLocationToTurfPoint} from './locationHelpers';
+import {
+  googleLocationToLocation, googleLocationToTurfPoint,
+  locationToGoogleFunctionalLocation
+} from './locationHelpers';
 import {googleLocationToTurfLineString} from 'locationHelpers';
 
 describe('locationheleprs', () => {
@@ -50,5 +53,13 @@ describe('locationheleprs', () => {
         "type": "LineString"
       }, "properties": {}, "type": "Feature"
     });
+  });
+
+  test('googleLocationToLocation', () => {
+    const location = [
+      38.93237329999999,
+      -77.0297374
+    ];
+    expect(googleLocationToLocation(locationToGoogleFunctionalLocation(location))).toEqual(location)
   });
 });
