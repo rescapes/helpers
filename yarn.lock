@@ -398,14 +398,6 @@ apollo-link-http@^1.3.1:
   dependencies:
     apollo-link "^1.0.7"
 
-apollo-link@1.2.2, apollo-link@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.2.tgz#54c84199b18ac1af8d63553a68ca389c05217a03"
-  dependencies:
-    "@types/graphql" "0.12.6"
-    apollo-utilities "^1.0.0"
-    zen-observable-ts "^0.8.9"
-
 apollo-link@^1.0.0, apollo-link@^1.0.6, apollo-link@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.0.7.tgz#42cd38a7378332fc3e41a214ff6a6e5e703a556f"
@@ -413,6 +405,14 @@ apollo-link@^1.0.0, apollo-link@^1.0.6, apollo-link@^1.0.7:
     "@types/zen-observable" "0.5.3"
     apollo-utilities "^1.0.0"
     zen-observable "^0.6.0"
+
+apollo-link@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.2.tgz#54c84199b18ac1af8d63553a68ca389c05217a03"
+  dependencies:
+    "@types/graphql" "0.12.6"
+    apollo-utilities "^1.0.0"
+    zen-observable-ts "^0.8.9"
 
 apollo-utilities@^1.0.0, apollo-utilities@^1.0.1:
   version "1.0.4"
@@ -1728,12 +1728,6 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   dependencies:
     cssom "0.3.x"
 
-"cssstyle@>= 0.3.1 < 0.4.0":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.3.1.tgz#6da9b4cff1bc5d716e6e5fe8e04fcb1b50a49adf"
-  dependencies:
-    cssom "0.3.x"
-
 cssstyle@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-1.0.0.tgz#79b16d51ec5591faec60e688891f15d2a5705129"
@@ -1750,7 +1744,7 @@ cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
 
-d3-array@1, d3-array@^1.2.0:
+d3-array@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.2.1.tgz#d1ca33de2f6ac31efadb8e050a021d7e2396d5dc"
 
@@ -1772,33 +1766,6 @@ d3-interpolate@1:
   dependencies:
     d3-color "1"
 
-d3-path@1:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/d3-path/-/d3-path-1.0.5.tgz#241eb1849bd9e9e8021c0d0a799f8a0e8e441764"
-
-d3-scale@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-1.0.7.tgz#fa90324b3ea8a776422bd0472afab0b252a0945d"
-  dependencies:
-    d3-array "^1.2.0"
-    d3-collection "1"
-    d3-color "1"
-    d3-format "1"
-    d3-interpolate "1"
-    d3-time "1"
-    d3-time-format "2"
-
-d3-scale@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-2.1.0.tgz#8d3fd3e2a7c9080782a523c08507c5248289eef8"
-  dependencies:
-    d3-array "^1.2.0"
-    d3-collection "1"
-    d3-format "1"
-    d3-interpolate "1"
-    d3-time "1"
-    d3-time-format "2"
-
 d3-scale@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-2.1.2.tgz#4e932b7b60182aee9073ede8764c98423e5f9a94"
@@ -1809,12 +1776,6 @@ d3-scale@^2.1.2:
     d3-interpolate "1"
     d3-time "1"
     d3-time-format "2"
-
-d3-shape@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/d3-shape/-/d3-shape-1.2.0.tgz#45d01538f064bafd05ea3d6d2cb748fd8c41f777"
-  dependencies:
-    d3-path "1"
 
 d3-time-format@2:
   version "2.1.1"
@@ -1831,14 +1792,6 @@ dashdash@^1.12.0:
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
   dependencies:
     assert-plus "^1.0.0"
-
-data-urls@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/data-urls/-/data-urls-1.0.0.tgz#24802de4e81c298ea8a9388bb0d8e461c774684f"
-  dependencies:
-    abab "^1.0.4"
-    whatwg-mimetype "^2.0.0"
-    whatwg-url "^6.4.0"
 
 data-urls@^1.0.1:
   version "1.0.1"
@@ -2862,16 +2815,6 @@ graphql-tag@^2.4.2:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.6.1.tgz#4788d509f6e29607d947fc47a40c4e18f736d34a"
 
-graphql-tools@^3.0.5:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-3.0.5.tgz#544542dbf2fddc8c3d7d654965285a3bc747b10b"
-  dependencies:
-    apollo-link "1.2.2"
-    apollo-utilities "^1.0.1"
-    deprecated-decorator "^0.1.6"
-    iterall "^1.1.3"
-    uuid "^3.1.0"
-
 graphql-tools@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-3.1.1.tgz#d593358f01e7c8b1671a17b70ddb034dea9dbc50"
@@ -2882,11 +2825,11 @@ graphql-tools@^3.1.1:
     iterall "^1.1.3"
     uuid "^3.1.0"
 
-"graphql@git://github.com/graphql/graphql-js.git#npm":
-  version "0.12.3"
-  resolved "git://github.com/graphql/graphql-js.git#6a43c4d9a4dc08beb4b113fa3bc1c8d66827b926"
+graphql@^14.0.2:
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.0.2.tgz#7dded337a4c3fd2d075692323384034b357f5650"
   dependencies:
-    iterall "1.1.3"
+    iterall "^1.2.2"
 
 growly@^1.3.0:
   version "1.3.0"
@@ -3543,9 +3486,13 @@ istanbul-reports@^1.3.0:
   dependencies:
     handlebars "^4.0.3"
 
-iterall@1.1.3, iterall@^1.1.3:
+iterall@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.1.3.tgz#1cbbff96204056dde6656e2ed2e2226d0e6d72c9"
+
+iterall@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
 
 jest-changed-files@^23.4.2:
   version "23.4.2"
@@ -3904,37 +3851,6 @@ jsdoc@^3.4.0:
     strip-json-comments "~2.0.1"
     taffydb "2.6.2"
     underscore "~1.8.3"
-
-jsdom@^11.11.0:
-  version "11.11.0"
-  resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-11.11.0.tgz#df486efad41aee96c59ad7a190e2449c7eb1110e"
-  dependencies:
-    abab "^1.0.4"
-    acorn "^5.3.0"
-    acorn-globals "^4.1.0"
-    array-equal "^1.0.0"
-    cssom ">= 0.3.2 < 0.4.0"
-    cssstyle ">= 0.3.1 < 0.4.0"
-    data-urls "^1.0.0"
-    domexception "^1.0.0"
-    escodegen "^1.9.0"
-    html-encoding-sniffer "^1.0.2"
-    left-pad "^1.2.0"
-    nwsapi "^2.0.0"
-    parse5 "4.0.0"
-    pn "^1.1.0"
-    request "^2.83.0"
-    request-promise-native "^1.0.5"
-    sax "^1.2.4"
-    symbol-tree "^3.2.2"
-    tough-cookie "^2.3.3"
-    w3c-hr-time "^1.0.1"
-    webidl-conversions "^4.0.2"
-    whatwg-encoding "^1.0.3"
-    whatwg-mimetype "^2.1.0"
-    whatwg-url "^6.4.1"
-    ws "^4.0.0"
-    xml-name-validator "^3.0.0"
 
 jsdom@^11.5.1:
   version "11.6.0"
@@ -4669,10 +4585,6 @@ nwmatcher@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/nwmatcher/-/nwmatcher-1.4.3.tgz#64348e3b3d80f035b40ac11563d278f8b72db89c"
 
-nwsapi@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.0.0.tgz#7c8faf4ad501e1d17a651ebc5547f966b547c5c7"
-
 nwsapi@^2.0.8:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.0.8.tgz#e3603579b7e162b3dbedae4fb24e46f771d8fa24"
@@ -4875,13 +4787,13 @@ parse-passwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
 
-parse5@4.0.0, parse5@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
-
 parse5@5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.0.tgz#c59341c9723f414c452975564c7c00a68d58acd2"
+
+parse5@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
 
 pascalcase@^0.1.1:
   version "0.1.1"
@@ -5523,64 +5435,6 @@ requizzle@~0.2.1:
   resolved "https://registry.yarnpkg.com/requizzle/-/requizzle-0.2.1.tgz#6943c3530c4d9a7e46f1cddd51c158fc670cdbde"
   dependencies:
     underscore "~1.6.0"
-
-rescape-geospatial-sankey@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/rescape-geospatial-sankey/-/rescape-geospatial-sankey-0.7.1.tgz#e46ba18f1e211a2ff42a097bfd2138abdbb27c2e"
-  dependencies:
-    d3-array "1"
-    d3-collection "1"
-    d3-scale "^1.0.7"
-    d3-shape "^1.2.0"
-
-rescape-geospatial-sankey@^0.7.13:
-  version "0.7.13"
-  resolved "https://registry.yarnpkg.com/rescape-geospatial-sankey/-/rescape-geospatial-sankey-0.7.13.tgz#34473ac2ad9e013621e81d86511b823bf69bace4"
-  dependencies:
-    d3-array "1"
-    d3-collection "1"
-    d3-scale "^1.0.7"
-    d3-shape "^1.2.0"
-    rescape-helpers "^1.1.49"
-
-rescape-helpers@^1.1.49:
-  version "1.1.53"
-  resolved "https://registry.yarnpkg.com/rescape-helpers/-/rescape-helpers-1.1.53.tgz#05c2e5a7ff56d61372c082f41661993ac708c220"
-  dependencies:
-    "@turf/bbox" "^6.0.1"
-    "@turf/bbox-polygon" "^6.0.1"
-    "@turf/center" "^6.0.1"
-    "@turf/helpers" "^6.1.4"
-    "@turf/meta" "^6.0.2"
-    "@turf/rhumb-bearing" "^6.0.1"
-    "@turf/rhumb-distance" "^6.0.1"
-    "@turf/transform-translate" "^5.1.5"
-    apollo-client-preset "^1.0.8"
-    babel-plugin-transform-es2015-modules-commonjs-simple "^6.7.4"
-    d3-scale "^2.1.0"
-    folktale "^2.1.0"
-    graphql "git://github.com/graphql/graphql-js.git#npm"
-    graphql-geojson "^1.0.0"
-    graphql-tools "^3.0.5"
-    immutable "^4.0.0-rc.9"
-    jsdom "^11.11.0"
-    longjohn "^0.2.12"
-    memoize-immutable "^3.0.0"
-    moment "^2.22.2"
-    moment-duration-format "^2.2.2"
-    namedtuplemap "^1.0.0"
-    numeral "^2.0.6"
-    parse-decimal-number "^1.0.0"
-    prop-types "^15.6.2"
-    ramda "^0.25.0"
-    redux "^4.0.0"
-    redux-debounced "^0.5.0"
-    redux-logger "^3.0.6"
-    redux-thunk "^2.3.0"
-    rescape-geospatial-sankey "^0.7.1"
-    rescape-ramda "^1.4.50"
-    rescape-validate "^1.2.10"
-    reselect "^3.0.1"
 
 rescape-ramda@^1.4.50:
   version "1.4.50"
@@ -6732,7 +6586,7 @@ whatwg-fetch@2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
 
-whatwg-mimetype@^2.0.0, whatwg-mimetype@^2.1.0:
+whatwg-mimetype@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/whatwg-mimetype/-/whatwg-mimetype-2.1.0.tgz#f0f21d76cbba72362eb609dbed2a30cd17fcc7d4"
 
@@ -6743,14 +6597,6 @@ whatwg-url@^6.4.0:
     lodash.sortby "^4.7.0"
     tr46 "^1.0.0"
     webidl-conversions "^4.0.1"
-
-whatwg-url@^6.4.1:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-6.4.1.tgz#fdb94b440fd4ad836202c16e9737d511f012fd67"
-  dependencies:
-    lodash.sortby "^4.7.0"
-    tr46 "^1.0.1"
-    webidl-conversions "^4.0.2"
 
 whatwg-url@^7.0.0:
   version "7.0.0"
