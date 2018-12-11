@@ -1,6 +1,6 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.67",
+  "version": "1.1.68",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -73,7 +73,7 @@
     "redux-debounced": "^0.5.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "rescape-ramda": "^1.4.52",
+    "rescape-ramda": "^1.4.85",
     "rescape-validate": "^1.2.10",
     "reselect": "^3.0.1"
   },
