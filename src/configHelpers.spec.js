@@ -69,7 +69,7 @@ describe('configHelpers', () => {
       }
     };
     expect(
-      R.keys(applyDefaultRegion(defaultConfig, regions).kamchatka).sort()
+      R.keys(applyDefaultRegion(defaultConfig.regions, regions).kamchatka).sort()
     ).toEqual(
       R.keys(
         R.merge(
