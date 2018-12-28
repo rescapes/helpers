@@ -5447,9 +5447,9 @@ rescape-ramda@^1.4.50:
     ramda-maybe "^0.18.0"
     util "^0.11.0"
 
-rescape-ramda@^1.4.52:
-  version "1.4.52"
-  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.52.tgz#678ea5c62755cd20810a25c3baa35dc3cfe76de9"
+rescape-ramda@^1.4.88:
+  version "1.4.88"
+  resolved "https://registry.yarnpkg.com/rescape-ramda/-/rescape-ramda-1.4.88.tgz#ac688e13e5195d6a04cd8229442fc38a778f7e4a"
   dependencies:
     folktale "^2.3.0"
     fs-extra "^7.0.0"

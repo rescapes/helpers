@@ -10,10 +10,7 @@
  */
 
 import * as R from 'ramda';
-import { mergeStateAndProps, makeInnerJoinByLensThenFilterSelector }
-  from './selectorHelpers';
-import {asUnaryMemoize} from 'selectorHelpers';
-import NamedTupleMap from 'namedtuplemap';
+import {mergeStateAndProps, makeInnerJoinByLensThenFilterSelector} from './selectorHelpers';
 
 describe('reselectHelpers', () => {
 
@@ -47,39 +44,20 @@ describe('reselectHelpers', () => {
     const stateLens = R.lensPath(['foos', 'bars']);
     const propsLens = R.lensPath(['bars']);
     const predicate = value => value.isSelected;
-    const state = {foos: {bars: [{id: 'bar1', name: 'Bar 1'}, {id: 'bar2', name: 'Bar 2'}, {id: 'bar3', name: 'Bar 3'}]}};
+    const state = {
+      foos: {
+        bars: [{id: 'bar1', name: 'Bar 1'}, {id: 'bar2', name: 'Bar 2'}, {
+          id: 'bar3',
+          name: 'Bar 3'
+        }]
+      }
+    };
     const props = {bars: {bar1: {id: 'bar1', isSelected: true}, bar2: {id: 'bar2'}}};
     const p = (a, b) => {
-      return R.eqProps('id', a, b)
-    }
+      return R.eqProps('id', a, b);
+    };
     expect(makeInnerJoinByLensThenFilterSelector(p, predicate, stateLens, propsLens)(state, props)).toEqual(
       {bar1: {id: 'bar1', name: 'Bar 1', isSelected: true}}
     );
-  });
-
-  test('NamedTupleMap', async () => {
-    const cache = new NamedTupleMap()
-    const keyMap = {crazy: 8888, mother: 'hubbard'}
-    const value = {any: 'thing'}
-    cache.set(keyMap, value)
-    const res = cache.get({crazy: 8888, mother: 'hubbard'})
-    expect(res).toEqual(value)
-  })
-
-  test('asUnaryMemoize', () => {
-    let i = 0
-    // The func increments i in order to prove that the function is memoized and only called when arguments change
-    const func = (apple, orange, universe) => {
-      return {apple, orange, i: i++}
-    };
-    const memoizedFunc = asUnaryMemoize(func);
-    const crazy = {crazy: 888}
-    const now = memoizedFunc(1, 2, crazy)
-    // This should hit the cache and not call the function
-    const later = memoizedFunc(1, 2, crazy)
-    expect(now).toEqual(later)
-    // This should call the function anew
-    const muchLater = memoizedFunc(1, 2, {crazy: 889})
-    expect(muchLater).toEqual(R.merge(now, {i:1}))
   });
 });

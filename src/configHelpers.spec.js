@@ -144,6 +144,9 @@ describe('configHelpers', () => {
     expect(parseApiUrl({ protocol: 'https', host: 'googoo.dolls', port: 1998, path: '/iris/' })).toEqual(
       'https://googoo.dolls:1998/iris/'
     )
+    expect(parseApiUrl({ protocol: 'https', host: 'googoo.dolls', port: null, path: '/iris/' })).toEqual(
+      'https://googoo.dolls/iris/'
+    )
   })
 
 });

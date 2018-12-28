@@ -10,7 +10,7 @@
  */
 
 import * as R from 'ramda';
-import {moveToKeys, mergeDeep, reqPathThrowing, reqStrPathThrowing} from 'rescape-ramda';
+import {moveToKeys, mergeDeep, reqPathThrowing, reqStrPathThrowing, strPathOr} from 'rescape-ramda';
 import PropTypes from 'prop-types';
 import {v} from 'rescape-validate';
 
@@ -150,5 +150,6 @@ export const firstUserLens = obj => R.lensPath(
  */
 export const parseApiUrl = apiSettings => {
   const req = reqStrPathThrowing(R.__, apiSettings);
-  return `${req('protocol')}://${req('host')}:${req('port')}${req('path')}`;
+  const noReq = strPathOr(null, R.__, apiSettings);
+  return `${req('protocol')}://${req('host')}${noReq('port') ? ':' : ''}${noReq('port') || ''}${req('path')}`;
 };

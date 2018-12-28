@@ -15,7 +15,7 @@ export {
 } from './configHelpers';
 
 export {
-  asUnaryMemoize,  makeInnerJoinByLensThenFilterSelector, fromFlatArgs, toFlatArgs,
+  makeInnerJoinByLensThenFilterSelector,
   mergeStateAndProps, STATUS, status
 } from './selectorHelpers';
 

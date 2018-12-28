@@ -10,10 +10,8 @@
  */
 
 import * as Result from 'folktale/result';
-import {filterWithKeys, mapPropValueAsIndex, mergeDeep} from 'rescape-ramda';
+import {filterWithKeys, mapPropValueAsIndex, mergeDeep, flattenObj, unflattenObj} from 'rescape-ramda';
 import * as R from 'ramda';
-import memoize from 'memoize-immutable';
-import NamedTupleMap from 'namedtuplemap';
 
 /**
  * Object statuses
@@ -101,58 +99,3 @@ export const makeInnerJoinByLensThenFilterSelector = (innerJoinPredicate, predic
   )([R.view(stateLens, state), R.view(propsLens, props)]);
 };
 
-
-/***
- * Memomizes a function to a single argument function so that we can always NamedTupleMap for the cache.
- * In order for this to work all objects have to be flattened into one big object. This Cache won't
- * accept inner objects that have changed. So the function coverts three args like
- * {a: {wombat: 1, emu: 2}}, {b: {caracal: 1, serval: 2}}, 'hamster' to
- * {arg1.a: {wombat: 1, emu: 2}, arg2.b: {caracal: 1, serval: 2}, arg3: 'hamster}
- * Thus it's okay for the outer wrappers to change but the inner objects must be === identical, such as the
- * womat and caracal objects.
- * We could flatten even deeper if needed but that would start having performance impacts. This assumes
- * that the outer containers might have changed through casual merging of properties but nothing internal
- * was messed with
- * @param {Function} func A function with any number and type of args
- * @returns {Function} A function that expects the same args as func
- */
-export const asUnaryMemoize = func => {
-  // Function that converts flat args to original args
-  const fromSingleArgFunc = flatArgs => func(fromFlatArgs(...flatArgs))
-  const memoizedFunc = memoize(fromSingleArgFunc, {cache: new NamedTupleMap()});
-  return (...args) => {
-    return memoizedFunc(toFlatArgs(args));
-  }
-};
-
-export const toFlatArgs = (...args) => {
-  return R.fromPairs(
-    R.addIndex(R.chain)(
-      (arg, i) => {
-        return R.ifElse(
-          R.is(Object),
-          R.compose(R.values, R.mapObjIndexed((v, k) => [`arg${i}.${k}`, v])),
-          a => [[`arg${i}`, a]]
-        )(arg);
-      },
-      args)
-  );
-};
-
-export const fromFlatArgs = flatArgs =>
-  // Sort in order arg1, arg2, ... and take values
-  R.values(
-    R.fromPairs(
-      R.sortBy(
-        R.identity,
-        R.toPairs(
-          R.reduce(
-            (acc, [key, value]) => {
-              return R.set(R.lensPath(R.split('.', key)), value, acc);
-            },
-            {},
-            R.toPairs(flatArgs))
-        )
-      )
-    )
-  );
