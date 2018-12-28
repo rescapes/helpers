@@ -14,7 +14,7 @@ import {moveToKeys, mergeDeep, reqPathThrowing, reqStrPathThrowing, strPathOr} f
 import PropTypes from 'prop-types';
 import {v} from 'rescape-validate';
 
-export const applyDefaultStyles = v((defaultConfig, styles) =>
+export const applyDefaultStyles = v(R.curry((defaultConfig, styles) =>
     mergeDeep(
       defaultConfig,
       {
@@ -23,7 +23,8 @@ export const applyDefaultStyles = v((defaultConfig, styles) =>
           default: styles
         }
       }
-    ),
+    )
+  ),
   [
     ['defaultConfig', PropTypes.shape().isRequired],
     ['styles', PropTypes.shape().isRequired]
@@ -35,7 +36,7 @@ export const applyDefaultStyles = v((defaultConfig, styles) =>
  * @param {Object} regions keyed by key if an object and valued by region.
  * @returns {Object} The "modified" defaultConfig.regions
  */
-export const applyDefaultRegion = v((defaultConfig, regions) =>
+export const applyDefaultRegion = v(R.curry((defaultConfig, regions) =>
     mergeDeep(
       moveToKeys(
         R.lensPath([]),
@@ -45,7 +46,8 @@ export const applyDefaultRegion = v((defaultConfig, regions) =>
         reqPathThrowing(['regions'], defaultConfig)
       ),
       regions
-    ),
+    )
+  ),
   [
     ['defaultConfig', PropTypes.shape().isRequired],
     ['regions', PropTypes.oneOfType([PropTypes.shape(), PropTypes.array]).isRequired]
@@ -71,7 +73,7 @@ export const applyDefaultRegion = v((defaultConfig, regions) =>
  * }
  * @returns {Object} The "modified" defaultConfig.users merged into the defaultUserKeyToUserObjs
  */
-export const mapDefaultUsers = v((defaultConfig, defaultUserKeyToUserObjs) => {
+export const mapDefaultUsers = v(R.curry((defaultConfig, defaultUserKeyToUserObjs) => {
     const defaultUsers = reqPathThrowing(['users'], defaultConfig);
     return R.mapObjIndexed(
       (users, defaultUserKey) => R.map(
@@ -80,7 +82,8 @@ export const mapDefaultUsers = v((defaultConfig, defaultUserKeyToUserObjs) => {
       ),
       defaultUserKeyToUserObjs
     );
-  },
+  }
+  ),
   [
     ['defaultConfig', PropTypes.shape().isRequired],
     ['defaultUserKeyToUserKeys', PropTypes.shape().isRequired]
@@ -103,7 +106,7 @@ export const keysAsIdObj = (...args) => R.fromPairs(R.map(key => [key, {id: key}
  * @param {Object} users An object keyed by user id and valued by user
  * @returns {Object} users with regions key set to a list of id objects (e.g. [{id: 1}, {id: 2}, ...]
  */
-export const applyRegionsToUsers = (regions, users) =>
+export const applyRegionsToUsers = R.curry((regions, users) =>
   R.map(
     user => R.set(
       R.lensPath(['regions']),
@@ -114,16 +117,20 @@ export const applyRegionsToUsers = (regions, users) =>
           R.ifElse(R.equals(0), R.always({isSelected: true}), R.always({}))(index)),
         R.keys(regions)),
       user),
-    users);
+    users
+  )
+);
 
 
 // export applyUserSettings = (lens, settings)
 
-export const wrapLocationsWithFeatures = (locations, locationFeatures) =>
-  R.mapObjIndexed((locationsByType, locationType) =>
-      R.set(R.lensProp('geojson'), reqPathThrowing(), locationType),
-    locations
-  );
+export const wrapLocationsWithFeatures = R.curry(
+  (locations, locationFeatures) =>
+    R.mapObjIndexed((locationsByType, locationType) =>
+        R.set(R.lensProp('geojson'), reqPathThrowing(), locationType),
+      locations
+    )
+);
 
 // Get the first user so we can make it the active user for testing
 export const firstUserLens = obj => R.lensPath(
