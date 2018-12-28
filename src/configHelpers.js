@@ -10,7 +10,14 @@
  */
 
 import * as R from 'ramda';
-import {moveToKeys, mergeDeep, reqPathThrowing, reqStrPathThrowing, strPathOr} from 'rescape-ramda';
+import {
+  moveToKeys,
+  mergeDeep,
+  reqPathThrowing,
+  reqStrPathThrowing,
+  strPathOr,
+  findOneValueByParamsThrowing
+} from 'rescape-ramda';
 import PropTypes from 'prop-types';
 import {v} from 'rescape-validate';
 
@@ -61,32 +68,31 @@ export const applyDefaultRegion = v(R.curry((defaultConfig, regions) =>
  * @param {Object} defaultConfig The configuration to use
  * @param {Object} defaultUserKeyToUserObjs Maps each default user key of interest to a list of
  * target user keyed objects.
- * E.g.  {
- * {[APP_ADMIN]: {
+ * E.g.
+ * {[APP_ADMIN]: { // this can be an object or list of users
  *  'phil': {...}
  *  'barbara': {...}
  * }
- * {[MANAGER]: {
+ * {[MANAGER]: { // this can be an object or list of users
  *  'ken': {...}
  *  'billy': {...}
  * }
  * }
  * @returns {Object} The "modified" defaultConfig.users merged into the defaultUserKeyToUserObjs
  */
-export const mapDefaultUsers = v(R.curry((defaultConfig, defaultUserKeyToUserObjs) => {
-    const defaultUsers = reqPathThrowing(['users'], defaultConfig);
+export const mapDefaultUsers = v(R.curry((templateUsers, defaultUserKeyToUsers) => {
     return R.mapObjIndexed(
-      (users, defaultUserKey) => R.map(
-        user => mergeDeep(reqPathThrowing([defaultUserKey], defaultUsers), user),
+      // We can map either an array or object for users
+      (users, templateKey) => R.map(
+        user => mergeDeep(findOneValueByParamsThrowing({templateKey}, templateUsers), user),
         users
       ),
-      defaultUserKeyToUserObjs
+      defaultUserKeyToUsers
     );
-  }
-  ),
+  }),
   [
-    ['defaultConfig', PropTypes.shape().isRequired],
-    ['defaultUserKeyToUserKeys', PropTypes.shape().isRequired]
+    ['templateUsers', PropTypes.array.isRequired],
+    ['defaultUserKeyToUsers', PropTypes.shape().isRequired]
   ], 'mapDefaultUsers'
 );
 

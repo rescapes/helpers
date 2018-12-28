@@ -19,7 +19,7 @@
  */
 import {applyDefaultRegion, mapDefaultUsers, keysAsIdObj, applyRegionsToUsers} from './configHelpers';
 import * as R from 'ramda';
-import {reqPathThrowing} from 'rescape-ramda';
+import {reqPathThrowing, findOneValueByParamsThrowing} from 'rescape-ramda';
 import {parseApiUrl} from 'configHelpers';
 
 const APP_ADMIN = 'app_admin';
@@ -34,21 +34,25 @@ describe('configHelpers', () => {
         id: 'aTemplateRegion'
       }
     },
-    users: {
-      [APP_ADMIN]: {
+    users: [
+      {
+        templateKey: APP_ADMIN,
         regions: {}
       },
-      [REGION_MANAGER]: {
+      {
+        templateKey: REGION_MANAGER,
         regions: {}
       },
-      [REGION_USER]: {
+      {
+        templateKey: REGION_USER,
         regions: {}
       },
-      [REGION_VISITOR]: {
+      {
+        templateKey: REGION_VISITOR,
         regions: {}
       }
-    }
-  }
+    ]
+  };
   test('applyDefaultRegion', () => {
     const regions = {
       kamchatka: {
@@ -95,7 +99,7 @@ describe('configHelpers', () => {
       }
     };
 
-    const mergedConfig = mapDefaultUsers(defaultConfig, {
+    const mergedConfig = mapDefaultUsers(defaultConfig.users, {
       [REGION_MANAGER]: R.pick(['linus', 'lucy'], realUsers),
       [REGION_USER]: R.pick(['pigpen'], realUsers)
     });
@@ -106,7 +110,7 @@ describe('configHelpers', () => {
       R.keys(
         R.merge(
           realUsers.linus,
-          reqPathThrowing(['users', REGION_MANAGER], defaultConfig)
+          findOneValueByParamsThrowing({templateKey: REGION_MANAGER}, defaultConfig.users)
         )
       ).sort()
     );
@@ -141,12 +145,12 @@ describe('configHelpers', () => {
   });
 
   test('parseApiUrl', () => {
-    expect(parseApiUrl({ protocol: 'https', host: 'googoo.dolls', port: 1998, path: '/iris/' })).toEqual(
+    expect(parseApiUrl({protocol: 'https', host: 'googoo.dolls', port: 1998, path: '/iris/'})).toEqual(
       'https://googoo.dolls:1998/iris/'
-    )
-    expect(parseApiUrl({ protocol: 'https', host: 'googoo.dolls', port: null, path: '/iris/' })).toEqual(
+    );
+    expect(parseApiUrl({protocol: 'https', host: 'googoo.dolls', port: null, path: '/iris/'})).toEqual(
       'https://googoo.dolls/iris/'
-    )
-  })
+    );
+  });
 
 });
