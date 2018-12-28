@@ -43,15 +43,9 @@ export const applyDefaultStyles = v(R.curry((defaultConfig, styles) =>
  * @param {Object} regions keyed by key if an object and valued by region.
  * @returns {Object} The "modified" defaultConfig.regions
  */
-export const applyDefaultRegion = v(R.curry((defaultRegions, regions) =>
-    mergeDeep(
-      moveToKeys(
-        R.lensPath([]),
-        'default',
-        // Keys of obj or string indexes of array
-        R.keys(regions),
-        defaultRegions
-      ),
+export const applyDefaultRegion = v(R.curry((defaultRegion, regions) =>
+    R.map(
+      region => mergeDeep(defaultRegion, region),
       regions
     )
   ),

@@ -28,31 +28,28 @@ const REGION_USER = 'region_user';
 const REGION_VISITOR = 'region_visitor';
 
 describe('configHelpers', () => {
-  const defaultConfig = {
-    regions: {
-      default: {
-        id: 'aTemplateRegion'
-      }
-    },
-    users: [
-      {
-        templateKey: APP_ADMIN,
-        regions: {}
-      },
-      {
-        templateKey: REGION_MANAGER,
-        regions: {}
-      },
-      {
-        templateKey: REGION_USER,
-        regions: {}
-      },
-      {
-        templateKey: REGION_VISITOR,
-        regions: {}
-      }
-    ]
+  const defaultRegion = {
+    id: 'aTemplateRegion'
   };
+
+  const defaultUsers = [
+    {
+      templateKey: APP_ADMIN,
+      regions: {}
+    },
+    {
+      templateKey: REGION_MANAGER,
+      regions: {}
+    },
+    {
+      templateKey: REGION_USER,
+      regions: {}
+    },
+    {
+      templateKey: REGION_VISITOR,
+      regions: {}
+    }
+  ];
   test('applyDefaultRegion', () => {
     const regions = {
       kamchatka: {
@@ -69,12 +66,12 @@ describe('configHelpers', () => {
       }
     };
     expect(
-      R.keys(applyDefaultRegion(defaultConfig.regions, regions).kamchatka).sort()
+      R.keys(applyDefaultRegion(defaultRegion, regions).kamchatka).sort()
     ).toEqual(
       R.keys(
         R.merge(
           regions.kamchatka,
-          reqPathThrowing(['regions', 'default'], defaultConfig)
+          defaultRegion
         )
       ).sort()
     );
@@ -99,7 +96,7 @@ describe('configHelpers', () => {
       }
     };
 
-    const mergedConfig = mapDefaultUsers(defaultConfig.users, {
+    const mergedConfig = mapDefaultUsers(defaultUsers, {
       [REGION_MANAGER]: R.pick(['linus', 'lucy'], realUsers),
       [REGION_USER]: R.pick(['pigpen'], realUsers)
     });
@@ -110,7 +107,7 @@ describe('configHelpers', () => {
       R.keys(
         R.merge(
           realUsers.linus,
-          findOneValueByParamsThrowing({templateKey: REGION_MANAGER}, defaultConfig.users)
+          findOneValueByParamsThrowing({templateKey: REGION_MANAGER}, defaultUsers)
         )
       ).sort()
     );
