@@ -13,7 +13,6 @@ import * as R from 'ramda';
 import {mergeStateAndProps, makeInnerJoinByLensThenFilterSelector} from './selectorHelpers';
 
 describe('reselectHelpers', () => {
-
   test('mergeStateAndProps', () => {
     const state = {
       buster: 1,
@@ -28,7 +27,7 @@ describe('reselectHelpers', () => {
         maeby: 3
       }
     };
-    expect(R.compose((state, props) => state, mergeStateAndProps)(state, props))
+    expect(R.compose((theState, theProps) => theState, mergeStateAndProps)(state, props))
       .toEqual({
         buster: 1,
         gob: 2,

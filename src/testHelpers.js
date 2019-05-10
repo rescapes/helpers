@@ -28,7 +28,8 @@ export const expectTaskRejected = task => expect(taskToPromise(task, true));
 
 /**
  * Converts an Result to a Promise. Result.Ok calls resolve and Result.Left calls reject
- * @param result
+ * @param {Object} result The result
+ * @returns {Promise} The promise
  */
 export const resultToPromise = result => {
   return new Promise((resolve, reject) => result.map(resolve).mapError(reject));

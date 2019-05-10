@@ -10,26 +10,26 @@
  */
 
 import * as R from 'ramda';
-import {point, lineString} from '@turf/helpers'
+import {point, lineString} from '@turf/helpers';
 
-/***
+/**
  * Convert a location to what Google sometimes uses, with lat(), lng()
- * @param location
- * @return {{lat: function(): *, lng: function(): *}}
+ * @param {Object} location The location
+ * @returns {{lat: function(): *, lng: function(): *}} The location
  */
 export const locationToGoogleFunctionalLocation = location => ({lat: () => location[0], lng: () => location[1]});
 
 /**
  * Convert a Google location to a Turf Point
  * @param {Object} location with lat, lng
- * @return {Object} { geometry : {type: "Point", coordinates: Array(2)} properties : {} type : "Feature" }
+ * @returns {Object} { geometry : {type: "Point", coordinates: Array(2)} properties : {} type : "Feature" } the point
  */
 export const googleLocationToTurfPoint = location => point(R.props(['lng', 'lat'], location));
 
 /**
  * Convert a Google location to a Turf LineString
  * @param {[Object]} locations with lat, lng
- * @return {Object} { geometry : {type: "LineString", coordinates: Array(2)} properties : {} type : "Feature" }
+ * @returns {Object} { geometry : {type: "LineString", coordinates: Array(2)} properties : {} type : "Feature" }
  */
 export const googleLocationToTurfLineString = locations => lineString(R.map(R.props(['lng', 'lat']), locations));
 
@@ -37,21 +37,21 @@ export const googleLocationToTurfLineString = locations => lineString(R.map(R.pr
 /**
  * Convert a location to a Turf Point with lat, lon
  * @param {[Number]} location a lat, lon
- * @return {Object} { geometry : {type: "Point", coordinates: Array(2)} properties : {} type : "Feature" }
+ * @returns {Object} { geometry : {type: "Point", coordinates: Array(2)} properties : {} type : "Feature" }
  */
 export const locationToTurfPoint = location => point(R.reverse(location));
 
 /**
  * Converts a Turf point back to a [lat, lon]
- * @param point
- * @return {[Number, Number]}
+ * @param {Object} p The point
+ * @return {[Number, Number]} The point
  */
-export const turfPointToLocation = point => R.reverse(R.take(2, point.geometry.coordinates));
+export const turfPointToLocation = p => R.reverse(R.take(2, p.geometry.coordinates));
 
-/***
+/**
  * Convert an object with lat lng keys or functions to a 2 element array
- * @param location
- * @return {*}
+ * @param {Object} location The location
+ * @return {*} The loation
  */
 export const googleLocationToLocation = location => R.map(
   R.when(
@@ -61,13 +61,15 @@ export const googleLocationToLocation = location => R.map(
   R.props(['lat', 'lng'], location)
 );
 
-/***
+/**
  * Convert a location object into a lat,lng string
- * @param location
+ * @param {Object} location The location
+ * @returns {String} the String
  */
 export const googleLocationToLatLngString = location => R.join(',', googleLocationToLocation(location));
-/***
+/**
  * Convert an origin/destination object into a lat,lng string
- * @param originDestination
+ * @param {Object} originDestination The origin
+ * @returns {String} The String
  */
 export const originDestinationToLatLngString = originDestination => googleLocationToLatLngString(originDestination.geometry.location);

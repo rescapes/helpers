@@ -149,5 +149,4 @@ describe('configHelpers', () => {
       'https://googoo.dolls/iris/'
     );
   });
-
 });

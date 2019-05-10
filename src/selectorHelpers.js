@@ -30,7 +30,7 @@ export const STATUS = {
  */
 export const status = R.fromPairs(
   R.map(
-    status => [status, R.prop(status)],
+    theStatus => [theStatus, R.prop(theStatus)],
     [STATUS.IS_SELECTED, STATUS.IS_ACTIVE]
   )
 );
@@ -83,11 +83,11 @@ export const makeInnerJoinByLensThenFilterSelector = (innerJoinPredicate, predic
     args => R.mergeWith(
       (l, r) => R.ifElse(
         // Do they pass the inner predicate? (use .value since Left.get() isn't allowed)
-        ([l, r]) => R.apply(innerJoinPredicate, [l.value, r.value]),
+        ([ll, rr]) => R.apply(innerJoinPredicate, [ll.value, rr.value]),
         // Yes pass, convert to Result.Ok
-        ([l, r]) => Result.Ok(R.apply(mergeDeep, [l.value, r.value])),
+        ([ll, rr]) => Result.Ok(R.apply(mergeDeep, [ll.value, rr.value])),
         // Fail, empty Left
-        ([l, r]) => Result.Error()
+        ([ll, rr]) => Result.Error()
       )([l, r]),
       ...args),
     R.map(

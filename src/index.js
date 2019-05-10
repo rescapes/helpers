@@ -22,8 +22,4 @@ export {
 export {
   googleLocationToTurfPoint, googleLocationToTurfLineString, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString,
   turfPointToLocation, googleLocationToLocation
-} from './locationHelpers'
-
-export {
-  createReduxStore
-} from './storeHelpers'
+} from './locationHelpers';

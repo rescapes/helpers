@@ -13,16 +13,16 @@ import { resolveFeatureFromExtent } from './svgHelpers';
 
 describe('svgHelpers', () => {
   test('resolveSvgPoint', () => {
-    //expect(resolveSvgPoints(opt, feature)).toEqual();
+    // expect(resolveSvgPoints(opt, feature)).toEqual();
   });
 
   test('resolveFeatureFromExtent', () => {
     expect(resolveFeatureFromExtent([0, 0], [1, 1])).toEqual(
       {
-        "type": "Feature",
-        "geometry": {
-          "type": "Polygon",
-          "coordinates": [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]]
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]]
         }
       }
     );

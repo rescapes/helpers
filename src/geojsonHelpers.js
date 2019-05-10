@@ -19,7 +19,7 @@ const FEATURES = 'features';
 
 /**
  * Split geojson by feature type
- * @param {Object} osm
+ * @param {Object} osm Osm
  * @param {Feature[]} osm.features Default []. Features that are way, node, or route according to their id
  * @returns {Object} Copies of the gtfs with a single type of Feature
  * geojsonByType:: geojson g = g -> <String, g>

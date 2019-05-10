@@ -22,10 +22,10 @@ describe('locationheleprs', () => {
       lng: -77.0297374
     };
     expect(googleLocationToTurfPoint(location)).toEqual({
-      "geometry": {
-        "coordinates": [-77.0297374, 38.93237329999999],
-        "type": "Point"
-      }, "properties": {}, "type": "Feature"
+      geometry: {
+        coordinates: [-77.0297374, 38.93237329999999],
+        type: 'Point'
+      }, properties: {}, type: 'Feature'
     });
   });
   test('googleLocationToTurfLineString', () => {
@@ -44,14 +44,14 @@ describe('locationheleprs', () => {
       }
     ];
     expect(googleLocationToTurfLineString(locations)).toEqual({
-      "geometry": {
-        "coordinates": [
+      geometry: {
+        coordinates: [
           [-77.0297374, 38.93237329999999],
           [-76.0297374, 38.93237329999999],
-          [-76.0297374, 37.93237329999999],
+          [-76.0297374, 37.93237329999999]
         ],
-        "type": "LineString"
-      }, "properties": {}, "type": "Feature"
+        type: 'LineString'
+      }, properties: {}, type: 'Feature'
     });
   });
 
@@ -60,6 +60,6 @@ describe('locationheleprs', () => {
       38.93237329999999,
       -77.0297374
     ];
-    expect(googleLocationToLocation(locationToGoogleFunctionalLocation(location))).toEqual(location)
+    expect(googleLocationToLocation(locationToGoogleFunctionalLocation(location))).toEqual(location);
   });
 });
