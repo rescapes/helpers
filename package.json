@@ -1,6 +1,6 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.92",
+  "version": "1.1.93",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -66,10 +66,10 @@
     "redux-debounced": "^0.5.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "rescape-helpers": "^1.1.91",
-    "rescape-ramda": "^1.5.69",
+    "rescape-helpers": "^1.1.92",
+    "rescape-ramda": "^1.5.70",
     "rescape-sample-data": "^1.2.58",
-    "rescape-validate": "^1.2.24",
+    "rescape-validate": "^1.2.25",
     "reselect": "^4.0.0"
   },
   "devDependencies": {
@@ -105,7 +105,7 @@
     "promise": "8.0.3",
     "react-dev-utils": "^9.0.1",
     "rimraf": "^2.6.2",
-    "rollup": "^1.19.3",
+    "rollup": "^1.19.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "10.0.2",
     "rollup-plugin-json": "^4.0.0",
