@@ -22,7 +22,9 @@ describe('testHelpers', () => {
   });
 
   test('resultToPromise', () => {
+    // eslint-disable-next-line jest/valid-expect
     expect(resultToPromise(Result.Ok(1))).resolves.toBe(1);
+    // eslint-disable-next-line jest/valid-expect
     expect(resultToPromise(Result.Error(1))).rejects.toBe(1);
   });
 });
