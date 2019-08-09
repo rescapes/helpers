@@ -1,10 +1,10 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.94",
+  "version": "1.1.95",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "module": "esm/index.js",
+  "jsnext:main": "esm/index.js",
   "files": [
     "dist",
     "lib",
