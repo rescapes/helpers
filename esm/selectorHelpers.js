@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 import { fromPairs, map, prop, compose, filter, mergeWith, ifElse, apply, view } from 'ramda';
 import { mergeDeep, filterWithKeys, mapPropValueAsIndex } from 'rescape-ramda';
+import { Ok, Error as Error$1 } from 'folktale/result';
 
 function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
@@ -60,66 +61,6 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
-var _module$exports;
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-} //----------------------------------------------------------------------
-//
-// This source file is part of the Folktale project.
-//
-// Licensed under MIT. See LICENCE for full licence information.
-// See CONTRIBUTORS for the list of contributors to the project.
-//
-//----------------------------------------------------------------------
-
-
-var Result = require('./result');
-
-var _require = require('../adt/union/union'),
-    typeSymbol = _require.typeSymbol;
-/*~
- * stability: stable
- * name: module folktale/result
- */
-
-
-module.exports = (_module$exports = {
-  Error: Result.Error,
-  Ok: Result.Ok,
-  hasInstance: Result.hasInstance,
-  of: Result.of,
-  fromJSON: Result.fromJSON
-}, _defineProperty(_module$exports, typeSymbol, Result[typeSymbol]), _defineProperty(_module$exports, 'try', require('./try')), _defineProperty(_module$exports, 'fromNullable', function fromNullable(aNullable, fallbackValue) {
-  var nullableToResult = require('../conversions/nullable-to-result');
-
-  if (arguments.length > 1) {
-    // eslint-disable-line prefer-rest-params 
-    return nullableToResult(aNullable, fallbackValue);
-  } else {
-    return nullableToResult(aNullable);
-  }
-}), _defineProperty(_module$exports, 'fromValidation', function fromValidation(aValidation) {
-  return require('../conversions/validation-to-result')(aValidation);
-}), _defineProperty(_module$exports, 'fromMaybe', function fromMaybe(aMaybe, failureValue) {
-  return require('../conversions/maybe-to-result')(aMaybe, failureValue);
-}), _module$exports);
-
-var Result$1 = /*#__PURE__*/Object.freeze({
-
-});
-
 /**
  * Object statuses
  * @type {{IS_SELECTED: string, IS_ACTIVE: string}}
@@ -178,7 +119,7 @@ var makeInnerJoinByLensThenFilterSelector = function makeInnerJoinByLensThenFilt
       return result.unsafeGet();
     }), filter( // Filter for Result.Ok
     function (result) {
-      return undefined(result);
+      return Ok.hasInstance(result);
     }), function (args) {
       return mergeWith.apply(R, [function (l, r) {
         return ifElse( // Do they pass the inner predicate? (use .value since Left.get() isn't allowed)
@@ -194,21 +135,21 @@ var makeInnerJoinByLensThenFilterSelector = function makeInnerJoinByLensThenFilt
               ll = _ref4[0],
               rr = _ref4[1];
 
-          return undefined(apply(mergeDeep, [ll.value, rr.value]));
+          return Ok(apply(mergeDeep, [ll.value, rr.value]));
         }, // Fail, empty Left
         function (_ref5) {
           var _ref6 = _slicedToArray(_ref5, 2),
               ll = _ref6[0],
               rr = _ref6[1];
 
-          return undefined();
+          return Error$1();
         })([l, r]);
       }].concat(_toConsumableArray(args)));
     }, map( // Make sure each is keyed by id before merging
     // Mark everything as Result.Error initially. Only things that match and pass the innerJoin predicate
     // will get converted to Result.Ok
     function (items) {
-      return map(undefined, mapPropValueAsIndex('id', items));
+      return map(Error$1, mapPropValueAsIndex('id', items));
     }))([view(stateLens, state), view(propsLens, props)]);
   };
 };

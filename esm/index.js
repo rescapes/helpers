@@ -12,6 +12,7 @@ import 'prop-types';
 import 'rescape-validate';
 export { applyDefaultRegion, applyDefaultStyles, applyRegionsToUsers, firstUserLens, keysAsIdObj, mapDefaultUsers, parseApiUrl, wrapLocationsWithFeatures } from './configHelpers.js';
 export { STATUS, makeInnerJoinByLensThenFilterSelector, mergeStateAndProps, status } from './selectorHelpers.js';
+import 'folktale/result';
 import '@turf/helpers';
 export { googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfPointToLocation } from './locationHelpers.js';
 //# sourceMappingURL=index.js.map
