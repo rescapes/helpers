@@ -20,6 +20,17 @@ export {
 } from './selectorHelpers';
 
 export {
-  googleLocationToTurfPoint, googleLocationToTurfLineString, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString,
-  turfPointToLocation, googleLocationToLocation
+  googleLocationToTurfPoint,
+  googleLocationToTurfLineString,
+  locationToGoogleFunctionalLocation,
+  locationToTurfPoint,
+  originDestinationToLatLngString,
+  turfPointToLocation,
+  turfBboxToOsmBbox,
+  googleLocationToLocation
 } from './locationHelpers';
+
+export {
+  convertFromGraphqlStructure,
+  convertToGraphqlStructure
+} from './graphqlHelpers';

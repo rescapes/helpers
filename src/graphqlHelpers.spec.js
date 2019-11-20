@@ -8,3 +8,39 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+import {
+  convertFromGraphqlStructure,
+  convertToGraphqlStructure
+} from './graphqlHelpers';
+
+describe('grpahqlHelpers', () => {
+  const outputParams = [
+    'id',
+    'name',
+    {
+      data: [
+        {
+          settings: [
+            'defaultLocation',
+            {
+              stages: [
+                'key',
+                'targets'
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ];
+  test('convertFromGraphqlStructure', () => {
+    const output = convertFromGraphqlStructure(outputParams);
+    expect(output).toMatchSnapshot();
+  });
+
+  test('convertToGraphqlStructure', () => {
+    const input = convertFromGraphqlStructure(outputParams);
+    const output = convertToGraphqlStructure(input);
+    expect(output).toMatchSnapshot();
+  });
+});

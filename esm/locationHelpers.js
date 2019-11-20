@@ -1,4 +1,4 @@
-import { props, map, reverse, take, when, is, join } from 'ramda';
+import { props, map, reverse, take, concat, drop, when, is, join } from 'ramda';
 import { point, lineString } from '@turf/helpers';
 
 /**
@@ -64,6 +64,15 @@ var turfPointToLocation = function turfPointToLocation(p) {
   return reverse(take(2, p.geometry.coordinates));
 };
 /**
+ * Converts turf's bbox [lon, lat, lon, lat] to Openstreetmap's [lat, lon, lat, lon]
+ * @param {[Number]} bbox The lon, lat, lon, lat
+ * @returns {[Number]} The lat, lon, lat, lon
+ */
+
+var turfBboxToOsmBbox = function turfBboxToOsmBbox(bbox) {
+  return concat(reverse(take(2, bbox)), reverse(drop(2, bbox)));
+};
+/**
  * Convert an object with lat lng keys or functions to a 2 element array
  * @param {Object} location The location
  * @return {*} The loation
@@ -93,5 +102,5 @@ var originDestinationToLatLngString = function originDestinationToLatLngString(o
   return googleLocationToLatLngString(originDestination.geometry.location);
 };
 
-export { googleLocationToLatLngString, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfPointToLocation };
+export { googleLocationToLatLngString, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfBboxToOsmBbox, turfPointToLocation };
 //# sourceMappingURL=locationHelpers.js.map

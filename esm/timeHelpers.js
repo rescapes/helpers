@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { duration } from 'moment';
 
 /**
  * Created by Andy Likuski on 2017.03.13
@@ -19,8 +19,8 @@ require('moment-duration-format');
  */
 
 
-var toTimeString = function toTimeString(duration) {
-  return (duration.milliseconds() >= 500 ? moment.duration(duration).add(1, 's') : duration).format('hh:mm:ss', {
+var toTimeString = function toTimeString(duration$1) {
+  return (duration$1.milliseconds() >= 500 ? duration(duration$1).add(1, 's') : duration$1).format('hh:mm:ss', {
     trim: false
   });
 };

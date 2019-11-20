@@ -49,6 +49,16 @@ export const locationToTurfPoint = location => point(R.reverse(location));
 export const turfPointToLocation = p => R.reverse(R.take(2, p.geometry.coordinates));
 
 /**
+ * Converts turf's bbox [lon, lat, lon, lat] to Openstreetmap's [lat, lon, lat, lon]
+ * @param {[Number]} bbox The lon, lat, lon, lat
+ * @returns {[Number]} The lat, lon, lat, lon
+ */
+export const turfBboxToOsmBbox = bbox => R.concat(
+  R.reverse(R.take(2, bbox)),
+  R.reverse(R.drop(2, bbox))
+);
+
+/**
  * Convert an object with lat lng keys or functions to a 2 element array
  * @param {Object} location The location
  * @return {*} The loation

@@ -11,7 +11,8 @@
 
 import {
   googleLocationToLocation, googleLocationToTurfPoint,
-  locationToGoogleFunctionalLocation
+  locationToGoogleFunctionalLocation,
+  turfBboxToOsmBbox
 } from './locationHelpers';
 import {googleLocationToTurfLineString} from 'locationHelpers';
 
@@ -62,4 +63,8 @@ describe('locationheleprs', () => {
     ];
     expect(googleLocationToLocation(locationToGoogleFunctionalLocation(location))).toEqual(location);
   });
+
+  test('turfBboxToOsmBbox', () => {
+    expect(turfBboxToOsmBbox([-10, 20, 10, -20])).toEqual([20, -10, -20, 10]);
+  })
 });
