@@ -1,6 +1,6 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.103",
+  "version": "1.1.104",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -25,8 +25,8 @@
     "docs:publish": "yarn run docs:clean && yarn run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:calocan/rescape-helpers gh-pages --force",
     "build-publish-patch": "yarn run build && yarn run publish-patch",
     "build-publish-minor": "yarn run build && yarn run publish-minor",
-    "publish-patch": "yarn --new-version version patch && yarn publish",
-    "publish-minor": "yarn --new-version version minor && yarn publish"
+    "publish-patch": "yarn version --patch && yarn publish --non-interactive",
+    "publish-minor": "yarn version --minor && yarn publish --non-interactive"
   },
   "repository": {
     "type": "git",
