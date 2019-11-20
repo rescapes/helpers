@@ -1,6 +1,6 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.102",
+  "version": "1.1.103",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
   "module": "esm/index.js",
