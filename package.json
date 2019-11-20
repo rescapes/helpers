@@ -1,10 +1,10 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.105",
+  "version": "1.1.106",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "jsnext:main": "esm/index.js",
+  "jsnext:main": "src/index.js",
   "files": [
     "lib",
     "esm",
@@ -44,6 +44,7 @@
     "@turf/meta": "^6.0.2",
     "@turf/rhumb-bearing": "^6.0.1",
     "@turf/rhumb-distance": "^6.0.1",
+    "@turf/square-grid": "^6.0.2",
     "@turf/transform-translate": "^5.1.5",
     "apollo-client-preset": "^1.0.8",
     "babel-plugin-transform-es2015-modules-commonjs-simple": "^6.7.4",
