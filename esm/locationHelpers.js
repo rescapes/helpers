@@ -1,5 +1,7 @@
 import { props, map, reverse, take, concat, drop, when, is, join } from 'ramda';
 import { point, lineString } from '@turf/helpers';
+import squareGrid from '@turf/square-grid';
+import bbox from '@turf/bbox';
 
 /**
  * Created by Andy Likuski on 2018.06.13
@@ -65,12 +67,12 @@ var turfPointToLocation = function turfPointToLocation(p) {
 };
 /**
  * Converts turf's bbox [lon, lat, lon, lat] to Openstreetmap's [lat, lon, lat, lon]
- * @param {[Number]} bbox The lon, lat, lon, lat
+ * @param {[Number]} boundingBox The lon, lat, lon, lat
  * @returns {[Number]} The lat, lon, lat, lon
  */
 
-var turfBboxToOsmBbox = function turfBboxToOsmBbox(bbox) {
-  return concat(reverse(take(2, bbox)), reverse(drop(2, bbox)));
+var turfBboxToOsmBbox = function turfBboxToOsmBbox(boundingBox) {
+  return concat(reverse(take(2, boundingBox)), reverse(drop(2, boundingBox)));
 };
 /**
  * Convert an object with lat lng keys or functions to a 2 element array
@@ -101,6 +103,48 @@ var googleLocationToLatLngString = function googleLocationToLatLngString(locatio
 var originDestinationToLatLngString = function originDestinationToLatLngString(originDestination) {
   return googleLocationToLatLngString(originDestination.geometry.location);
 };
+/**
+ * Uses Turf's squareGrid to extract bounding boxes based on the cellsize and the bounds
+ * @param {Object} options The cell options
+ * @param {Number} options.cellSize The size of the boxes
+ * @param {Number} options.units The units of the boxes. Defaults to kilometers
+ * @param {[Number]} bounds The turf bounds [lon, lat, lon, lat]
+ * @returns {[[Number]]} Array of turf bboxes [[lon, lat, lon, lat], ...]
+ */
 
-export { googleLocationToLatLngString, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfBboxToOsmBbox, turfPointToLocation };
+var extractSquareGridBboxesFromBounds = function extractSquareGridBboxesFromBounds(_ref, bounds) {
+  var cellSize = _ref.cellSize,
+      units = _ref.units;
+  var squareGridOptions = {
+    units: units || 'kilometers'
+  }; // Use turf's squareGrid function to break up the bbox by cellSize squares
+
+  return map(function (polygon) {
+    return bbox(polygon);
+  }, squareGrid(bounds, cellSize, squareGridOptions).features);
+};
+/**
+ * Uses Turf's squareGrid to extract bounding boxes based on the cellsize and the geojson features.
+ * The features are used as a mask, so any geojson shapes that comes in will be maded in to squares
+ * @param {Object} options The cell options
+ * @param {Number} options.cellSize The size of the boxes
+ * @param {Number} options.unit The units of the boxes. Defaults to kilometers
+ * @param {Object} geojson The turf bounds [lon, lat, lon, lat]
+ * @returns {[[Number]]} Array of turf bboxes [[lon, lat, lon, lat], ...]
+ */
+
+var extractSquareGridBboxesFromGeojson = function extractSquareGridBboxesFromGeojson(_ref2, geojson) {
+  var cellSize = _ref2.cellSize,
+      units = _ref2.units;
+  var squareGridOptions = {
+    units: units || 'kilometers',
+    mask: geojson
+  }; // Use turf's squareGrid function to break up the bbox by cellSize squares
+
+  return map(function (polygon) {
+    return bbox(polygon);
+  }, squareGrid(bbox(geojson), cellSize, squareGridOptions).features);
+};
+
+export { extractSquareGridBboxesFromBounds, extractSquareGridBboxesFromGeojson, googleLocationToLatLngString, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfBboxToOsmBbox, turfPointToLocation };
 //# sourceMappingURL=locationHelpers.js.map

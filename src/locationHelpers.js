@@ -11,6 +11,8 @@
 
 import * as R from 'ramda';
 import {point, lineString} from '@turf/helpers';
+import squareGrid from '@turf/square-grid';
+import bbox from '@turf/bbox';
 
 /**
  * Convert a location to what Google sometimes uses, with lat(), lng()
@@ -50,12 +52,12 @@ export const turfPointToLocation = p => R.reverse(R.take(2, p.geometry.coordinat
 
 /**
  * Converts turf's bbox [lon, lat, lon, lat] to Openstreetmap's [lat, lon, lat, lon]
- * @param {[Number]} bbox The lon, lat, lon, lat
+ * @param {[Number]} boundingBox The lon, lat, lon, lat
  * @returns {[Number]} The lat, lon, lat, lon
  */
-export const turfBboxToOsmBbox = bbox => R.concat(
-  R.reverse(R.take(2, bbox)),
-  R.reverse(R.drop(2, bbox))
+export const turfBboxToOsmBbox = boundingBox => R.concat(
+  R.reverse(R.take(2, boundingBox)),
+  R.reverse(R.drop(2, boundingBox))
 );
 
 /**
@@ -83,3 +85,64 @@ export const googleLocationToLatLngString = location => R.join(',', googleLocati
  * @returns {String} The String
  */
 export const originDestinationToLatLngString = originDestination => googleLocationToLatLngString(originDestination.geometry.location);
+
+/**
+ * Uses Turf's squareGrid to extract bounding boxes based on the cellsize and the bounds
+ * @param {Object} options The cell options
+ * @param {Number} options.cellSize The size of the boxes
+ * @param {Number} options.units The units of the boxes. Defaults to kilometers
+ * @param {[Number]} bounds The turf bounds [lon, lat, lon, lat]
+ * @returns {[[Number]]} Array of turf bboxes [[lon, lat, lon, lat], ...]
+ */
+export const extractSquareGridBboxesFromBounds = ({cellSize, units}, bounds) => {
+  const squareGridOptions = {units: units || 'kilometers'};
+  // Use turf's squareGrid function to break up the bbox by cellSize squares
+  return R.map(
+    polygon => bbox(polygon),
+    squareGrid(bounds, cellSize, squareGridOptions).features
+  );
+};
+
+/**
+ * Uses Turf's squareGrid to extract square grid geojson features.
+ * The features are used as a mask, so any geojson shapes that comes in will be made into squares
+ * If the geojson is to small to produce a result with the given cellSize, the cellSize will be divided by 10
+ * until a result is produced
+ * @param {Object} options The cell options
+ * @param {Number} options.cellSize The size of the boxes' sides
+ * @param {Number} options.unit The units of the boxes. Defaults to kilometers
+ * @param {Object} geojson The turf bounds [lon, lat, lon, lat]
+ * @returns {Object} A FeatureCollection with the box features of size cellSize or cellSize / 10, / 100, etc
+ * until results are produced
+ */
+export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units}, geojson) => {
+  const squareGridOptions = {units: units || 'kilometers', mask: geojson};
+  // Use turf's squareGrid function to break up the bbox by cellSize squares
+  return R.reduceWhile(
+    // Quit if the accumulator has values
+    (accum, _) => R.compose(R.not, R.length, R.prop('features'))(accum),
+    (accum, currentCellSize) => squareGrid(
+      bbox(geojson),
+      currentCellSize,
+      squareGridOptions
+    ),
+    {features: []},
+    // Assume 10 divisions by 10 is enough to generate some features
+    R.times(i => cellSize / Math.pow(10, i), 10)
+  );
+};
+
+/**
+ * Same as extractSquareGridFeatureCollectionFromGeojson but maps each feature to a bbox
+ * @param {Object} options The cell options
+ * @param {Number} options.cellSize The size of the boxes
+ * @param {Number} options.unit The units of the boxes. Defaults to kilometers
+ * @param {Object} geojson The turf bounds [lon, lat, lon, lat]
+ * @returns {[[Number]]} Array of turf bboxes [[lon, lat, lon, lat], ...]
+ */
+export const extractSquareGridBboxesFromGeojson = ({cellSize, units}, geojson) => {
+  return R.map(
+    polygon => bbox(polygon),
+    extractSquareGridFeatureCollectionFromGeojson({cellSize, units}, geojson).features
+  );
+};

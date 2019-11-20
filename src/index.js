@@ -27,7 +27,10 @@ export {
   originDestinationToLatLngString,
   turfPointToLocation,
   turfBboxToOsmBbox,
-  googleLocationToLocation
+  googleLocationToLocation,
+  extractSquareGridBboxesFromBounds,
+  extractSquareGridBboxesFromGeojson,
+  extractSquareGridFeatureCollectionFromGeojson
 } from './locationHelpers';
 
 export {

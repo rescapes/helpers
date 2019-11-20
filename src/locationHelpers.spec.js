@@ -10,11 +10,13 @@
  */
 
 import {
+  extractSquareGridBboxesFromBounds, extractSquareGridBboxesFromGeojson,
   googleLocationToLocation, googleLocationToTurfPoint,
   locationToGoogleFunctionalLocation,
   turfBboxToOsmBbox
 } from './locationHelpers';
 import {googleLocationToTurfLineString} from 'locationHelpers';
+import * as R from 'ramda';
 
 describe('locationheleprs', () => {
   test('googleLocationToTurfPoint', () => {
@@ -66,5 +68,132 @@ describe('locationheleprs', () => {
 
   test('turfBboxToOsmBbox', () => {
     expect(turfBboxToOsmBbox([-10, 20, 10, -20])).toEqual([20, -10, -20, 10]);
-  })
+  });
+
+  test('extractSquareGridBboxesFromBounds', () => {
+    expect(
+      R.length(extractSquareGridBboxesFromBounds({cellSize: 1, units: 'kilometers'}, [-10, 20, -10.1, 20.1]))
+    ).toEqual(
+      110
+    );
+  });
+
+  test('extractSquareGridBboxesFromGeojson', () => {
+    const geojson = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -78.95736694335936,
+                  36.02466804934357
+                ],
+                [
+                  -79.02740478515624,
+                  36.09849285185278
+                ],
+                [
+                  -79.01641845703125,
+                  36.00300704420516
+                ],
+                [
+                  -79.16404724121094,
+                  36.039105412048464
+                ],
+                [
+                  -79.03495788574217,
+                  35.9529973954962
+                ],
+                [
+                  -79.19357299804688,
+                  35.902399875143615
+                ],
+                [
+                  -79.00131225585938,
+                  35.89238773935897
+                ],
+                [
+                  -78.9649200439453,
+                  35.81836994517017
+                ],
+                [
+                  -78.95942687988281,
+                  35.93632047192033
+                ],
+                [
+                  -78.80561828613281,
+                  35.90963007449912
+                ],
+                [
+                  -78.98551940917969,
+                  35.97856184167139
+                ],
+                [
+                  -78.85848999023438,
+                  36.06963726622717
+                ],
+                [
+                  -78.95736694335936,
+                  36.02466804934357
+                ]
+              ]
+            ]
+          }
+        }
+      ]
+    };
+    expect(
+      R.length(extractSquareGridBboxesFromGeojson({cellSize: 1, units: 'kilometers'}, geojson))
+    ).toEqual(
+      350
+    );
+
+    // Small geojson should force cellSize to divide by 10 until it produces squares
+    const smallGeojson = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -78.91153335571289,
+                  35.99092428287934
+                ],
+                [
+                  -78.90569686889648,
+                  35.99092428287934
+                ],
+                [
+                  -78.90569686889648,
+                  35.99495207566063
+                ],
+                [
+                  -78.91153335571289,
+                  35.99495207566063
+                ],
+                [
+                  -78.91153335571289,
+                  35.99092428287934
+                ]
+              ]
+            ]
+          }
+        }
+      ]
+    }
+    expect(
+      R.length(extractSquareGridBboxesFromGeojson({cellSize: 1, units: 'kilometers'}, smallGeojson))
+    ).toEqual(
+      20
+    );
+  });
 });
