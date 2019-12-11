@@ -1,6 +1,6 @@
 {
   "name": "rescape-helpers",
-  "version": "1.1.107",
+  "version": "1.1.108",
   "description": "Rescape helper functions",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -38,6 +38,7 @@
     "url": "https://github.com/calocan/rescape-helpers"
   },
   "dependencies": {
+    "@turf/area": "^6.0.1",
     "@turf/bbox": "^6.0.1",
     "@turf/bbox-polygon": "^6.0.1",
     "@turf/helpers": "^6.1.4",
