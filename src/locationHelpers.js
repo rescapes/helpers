@@ -9,10 +9,12 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import * as R from 'ramda';
 import {point, lineString} from '@turf/helpers';
+import * as R from 'ramda';
 import squareGrid from '@turf/square-grid';
 import bbox from '@turf/bbox';
+import bboxPolygon from '@turf/bbox-polygon';
+import area from '@turf/area';
 
 /**
  * Convert a location to what Google sometimes uses, with lat(), lng()
@@ -117,20 +119,27 @@ export const extractSquareGridBboxesFromBounds = ({cellSize, units}, bounds) => 
  */
 export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units}, geojson) => {
   const squareGridOptions = {units: units || 'kilometers', mask: geojson};
+  const box = bbox(geojson);
+  const length = Math.sqrt(area(bboxPolygon(box)));
+  // Ignore features less than about 1 km length
+  if (R.gt(1000, length)) {
+    return geojson;
+  }
   // Use turf's squareGrid function to break up the bbox by cellSize squares
   return R.reduceWhile(
     // Quit if the accumulator has values
     (accum, _) => R.compose(R.not, R.length, R.prop('features'))(accum),
     (accum, currentCellSize) => squareGrid(
-      bbox(geojson),
+      box,
       currentCellSize,
       squareGridOptions
     ),
     {features: []},
     // Assume 10 divisions by 10 is enough to generate some features
-    R.times(i => cellSize / Math.pow(10, i), 10)
+    R.times(i => cellSize / Math.pow(2, i), 10)
   );
 };
+
 
 /**
  * Same as extractSquareGridFeatureCollectionFromGeojson but maps each feature to a bbox

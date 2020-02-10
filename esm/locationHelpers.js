@@ -1,7 +1,9 @@
-import { props, map, reverse, take, concat, drop, when, is, join } from 'ramda';
+import { props, map, reverse, take, concat, drop, when, is, join, gt, reduceWhile, compose, not, length, prop, times } from 'ramda';
 import { point, lineString } from '@turf/helpers';
 import squareGrid from '@turf/square-grid';
 import bbox from '@turf/bbox';
+import bboxPolygon from '@turf/bbox-polygon';
+import area from '@turf/area';
 
 /**
  * Created by Andy Likuski on 2018.06.13
@@ -124,8 +126,47 @@ var extractSquareGridBboxesFromBounds = function extractSquareGridBboxesFromBoun
   }, squareGrid(bounds, cellSize, squareGridOptions).features);
 };
 /**
- * Uses Turf's squareGrid to extract bounding boxes based on the cellsize and the geojson features.
- * The features are used as a mask, so any geojson shapes that comes in will be maded in to squares
+ * Uses Turf's squareGrid to extract square grid geojson features.
+ * The features are used as a mask, so any geojson shapes that comes in will be made into squares
+ * If the geojson is to small to produce a result with the given cellSize, the cellSize will be divided by 10
+ * until a result is produced
+ * @param {Object} options The cell options
+ * @param {Number} options.cellSize The size of the boxes' sides
+ * @param {Number} options.unit The units of the boxes. Defaults to kilometers
+ * @param {Object} geojson The turf bounds [lon, lat, lon, lat]
+ * @returns {Object} A FeatureCollection with the box features of size cellSize or cellSize / 10, / 100, etc
+ * until results are produced
+ */
+
+var extractSquareGridFeatureCollectionFromGeojson = function extractSquareGridFeatureCollectionFromGeojson(_ref2, geojson) {
+  var cellSize = _ref2.cellSize,
+      units = _ref2.units;
+  var squareGridOptions = {
+    units: units || 'kilometers',
+    mask: geojson
+  };
+  var box = bbox(geojson);
+  var length$1 = Math.sqrt(area(bboxPolygon(box))); // Ignore features less than about 1 km length
+
+  if (gt(1000, length$1)) {
+    return geojson;
+  } // Use turf's squareGrid function to break up the bbox by cellSize squares
+
+
+  return reduceWhile( // Quit if the accumulator has values
+  function (accum, _) {
+    return compose(not, length, prop('features'))(accum);
+  }, function (accum, currentCellSize) {
+    return squareGrid(box, currentCellSize, squareGridOptions);
+  }, {
+    features: []
+  }, // Assume 10 divisions by 10 is enough to generate some features
+  times(function (i) {
+    return cellSize / Math.pow(2, i);
+  }, 10));
+};
+/**
+ * Same as extractSquareGridFeatureCollectionFromGeojson but maps each feature to a bbox
  * @param {Object} options The cell options
  * @param {Number} options.cellSize The size of the boxes
  * @param {Number} options.unit The units of the boxes. Defaults to kilometers
@@ -133,18 +174,16 @@ var extractSquareGridBboxesFromBounds = function extractSquareGridBboxesFromBoun
  * @returns {[[Number]]} Array of turf bboxes [[lon, lat, lon, lat], ...]
  */
 
-var extractSquareGridBboxesFromGeojson = function extractSquareGridBboxesFromGeojson(_ref2, geojson) {
-  var cellSize = _ref2.cellSize,
-      units = _ref2.units;
-  var squareGridOptions = {
-    units: units || 'kilometers',
-    mask: geojson
-  }; // Use turf's squareGrid function to break up the bbox by cellSize squares
-
+var extractSquareGridBboxesFromGeojson = function extractSquareGridBboxesFromGeojson(_ref3, geojson) {
+  var cellSize = _ref3.cellSize,
+      units = _ref3.units;
   return map(function (polygon) {
     return bbox(polygon);
-  }, squareGrid(bbox(geojson), cellSize, squareGridOptions).features);
+  }, extractSquareGridFeatureCollectionFromGeojson({
+    cellSize: cellSize,
+    units: units
+  }, geojson).features);
 };
 
-export { extractSquareGridBboxesFromBounds, extractSquareGridBboxesFromGeojson, googleLocationToLatLngString, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfBboxToOsmBbox, turfPointToLocation };
+export { extractSquareGridBboxesFromBounds, extractSquareGridBboxesFromGeojson, extractSquareGridFeatureCollectionFromGeojson, googleLocationToLatLngString, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfBboxToOsmBbox, turfPointToLocation };
 //# sourceMappingURL=locationHelpers.js.map

@@ -79,15 +79,62 @@ describe('locationheleprs', () => {
   });
 
   test('extractSquareGridBboxesFromGeojson', () => {
-    const geojson = {
-      "type": "FeatureCollection",
-      "features": [
+    const geojsonSmall = {
+      type: 'FeatureCollection',
+      features: [
         {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
+          type: 'Feature',
+          bbox: [
+            7.5845753369431765,
+            47.54518372603593,
+            7.591459663056825,
+            47.547407269100255
+          ],
+          properties: {},
+          geometry: {
+            type: 'Polygon',
+            coordinates: [
+              [
+                [
+                  7.5845753369431765,
+                  47.54518372603593
+                ],
+                [
+                  7.591459663056825,
+                  47.54518372603593
+                ],
+                [
+                  7.591459663056825,
+                  47.547407269100255
+                ],
+                [
+                  7.5845753369431765,
+                  47.547407269100255
+                ],
+                [
+                  7.5845753369431765,
+                  47.54518372603593
+                ]
+              ]
+            ]
+          }
+        }
+      ]
+    };
+    expect(
+      R.length(extractSquareGridBboxesFromGeojson({cellSize: 1, units: 'kilometers'}, geojsonSmall))
+    ).toEqual(
+      1
+    );
+    const geojson = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Polygon',
+            coordinates: [
               [
                 [
                   -78.95736694335936,
@@ -151,49 +198,6 @@ describe('locationheleprs', () => {
       R.length(extractSquareGridBboxesFromGeojson({cellSize: 1, units: 'kilometers'}, geojson))
     ).toEqual(
       350
-    );
-
-    // Small geojson should force cellSize to divide by 10 until it produces squares
-    const smallGeojson = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-              [
-                [
-                  -78.91153335571289,
-                  35.99092428287934
-                ],
-                [
-                  -78.90569686889648,
-                  35.99092428287934
-                ],
-                [
-                  -78.90569686889648,
-                  35.99495207566063
-                ],
-                [
-                  -78.91153335571289,
-                  35.99495207566063
-                ],
-                [
-                  -78.91153335571289,
-                  35.99092428287934
-                ]
-              ]
-            ]
-          }
-        }
-      ]
-    }
-    expect(
-      R.length(extractSquareGridBboxesFromGeojson({cellSize: 1, units: 'kilometers'}, smallGeojson))
-    ).toEqual(
-      20
     );
   });
 });

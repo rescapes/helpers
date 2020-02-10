@@ -17,7 +17,9 @@ import 'folktale/result';
 import '@turf/helpers';
 import '@turf/square-grid';
 import '@turf/bbox';
-export { extractSquareGridBboxesFromBounds, extractSquareGridBboxesFromGeojson, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfBboxToOsmBbox, turfPointToLocation } from './locationHelpers.js';
+import '@turf/bbox-polygon';
+import '@turf/area';
+export { extractSquareGridBboxesFromBounds, extractSquareGridBboxesFromGeojson, extractSquareGridFeatureCollectionFromGeojson, googleLocationToLocation, googleLocationToTurfLineString, googleLocationToTurfPoint, locationToGoogleFunctionalLocation, locationToTurfPoint, originDestinationToLatLngString, turfBboxToOsmBbox, turfPointToLocation } from './locationHelpers.js';
 
 /**
  * Converts our graphql structure to a regular object so we can filter keys
