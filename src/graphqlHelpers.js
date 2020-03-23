@@ -13,6 +13,7 @@ import {mapObjToValues} from 'rescape-ramda';
 import * as R from 'ramda';
 
 /**
+ * @deprecated We no longer convert. We simply define graphql as an object with primitives represented by key :true
  * Converts our graphql structure to a regular object so we can filter keys
  * @param {Object} graphqlListStructure The structure
  * @returns {Object} An object representation of graphqlListStructure that can be processed with normal object functions.
@@ -42,6 +43,7 @@ export const convertFromGraphqlStructure = graphqlListStructure => R.compose(
 
 // eslint-disable-next-line valid-jsdoc
 /**
+ * @deprecated We no longer convert. We simply define graphql as an object with primitives represented by key :true
  * Converts an object created with convertFromGraphqlStructure back to our grapqhl structure
  * @param {Object} obj Result of converting using convertFromGraphqlStructure
  * @returns {[Object|String]} The graphqlListStructure. See the regionStore.js's regionOutputParams for an example
