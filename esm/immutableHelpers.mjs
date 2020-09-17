@@ -1,2 +1,0 @@
-import{ifElse as r,when as a,map as m,curry as o,pipe as t,compose as e}from"ramda";import{mapPropValueAsIndex as i}from"rescape-ramda";import{Iterable as s,fromJS as p}from"immutable";const y=r=>s.isIterable(r)?r:p(r),A=r=>r.toJS?r.toJS():r,b=o=>r(s.isIterable,A,a(Array.isArray,m(b)))(o),f=o((r,m)=>t(a(Array.isArray,i(r)),y)(m)),l=e(A,y);export{l as copy,b as fromImmutable,y as toImmutable,f as toImmutableKeyedByProp,A as toJS};
-//# sourceMappingURL=immutableHelpers.mjs.map

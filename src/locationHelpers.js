@@ -80,13 +80,17 @@ export const googleLocationToLocation = location => R.map(
  * @param {Object} location The location
  * @returns {String} the String
  */
-export const googleLocationToLatLngString = location => R.join(',', googleLocationToLocation(location));
+export const googleLocationToLatLngString = location => {
+  return R.join(',', googleLocationToLocation(location));
+};
 /**
  * Convert an origin/destination object into a lat,lng string
  * @param {Object} originDestination The origin
  * @returns {String} The String
  */
-export const originDestinationToLatLngString = originDestination => googleLocationToLatLngString(originDestination.geometry.location);
+export const originDestinationToLatLngString = originDestination => {
+  return googleLocationToLatLngString(originDestination.geometry.location);
+};
 
 /**
  * Uses Turf's squareGrid to extract bounding boxes based on the cellsize and the bounds
@@ -122,9 +126,13 @@ export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units},
   const box = bbox(geojson);
   const length = Math.sqrt(area(bboxPolygon(box)));
   // Ignore features less than about 1 km length
+  // TODO I don't remember whey I did this. It ruins searching for weird shapes because they don't get conveted
+  // to small boxes
+  /*
   if (R.gt(1000, length)) {
     return geojson;
   }
+  */
   // Use turf's squareGrid function to break up the bbox by cellSize squares
   return R.reduceWhile(
     // Quit if the accumulator has values
@@ -144,7 +152,7 @@ export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units},
 /**
  * Same as extractSquareGridFeatureCollectionFromGeojson but maps each feature to a bbox
  * @param {Object} options The cell options
- * @param {Number} options.cellSize The size of the boxes
+ * @param {Number} options.cellSize The size of the boxes on 1 side
  * @param {Number} options.unit The units of the boxes. Defaults to kilometers
  * @param {Object} geojson The turf bounds [lon, lat, lon, lat]
  * @returns {[[Number]]} Array of turf bboxes [[lon, lat, lon, lat], ...]
