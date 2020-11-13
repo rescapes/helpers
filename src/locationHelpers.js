@@ -104,8 +104,8 @@ export const extractSquareGridBboxesFromBounds = ({cellSize, units}, bounds) => 
   const squareGridOptions = {units: units || 'kilometers'};
   // Use turf's squareGrid function to break up the bbox by cellSize squares
   return R.map(
-    polygon => bbox(polygon),
-    squareGrid(bounds, cellSize, squareGridOptions).features
+    polygon => bbox.default(polygon),
+    squareGrid.default(bounds, cellSize, squareGridOptions).features
   );
 };
 
@@ -123,8 +123,8 @@ export const extractSquareGridBboxesFromBounds = ({cellSize, units}, bounds) => 
  */
 export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units}, geojson) => {
   const squareGridOptions = {units: units || 'kilometers', mask: geojson};
-  const box = bbox(geojson);
-  const length = Math.sqrt(area(bboxPolygon(box)));
+  const box = bbox.default(geojson);
+  const length = Math.sqrt(area.default(bboxPolygon.default(box)));
   // Ignore features less than about 1 km length
   // TODO I don't remember whey I did this. It ruins searching for weird shapes because they don't get conveted
   // to small boxes
@@ -137,7 +137,7 @@ export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units},
   return R.reduceWhile(
     // Quit if the accumulator has values
     (accum, _) => R.compose(R.not, R.length, R.prop('features'))(accum),
-    (accum, currentCellSize) => squareGrid(
+    (accum, currentCellSize) => squareGrid.default(
       box,
       currentCellSize,
       squareGridOptions
@@ -159,7 +159,7 @@ export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units},
  */
 export const extractSquareGridBboxesFromGeojson = ({cellSize, units}, geojson) => {
   return R.map(
-    polygon => bbox(polygon),
+    polygon => bbox.default(polygon),
     extractSquareGridFeatureCollectionFromGeojson({cellSize, units}, geojson).features
   );
 };

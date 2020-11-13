@@ -8,7 +8,7 @@ import * as R from 'ramda';
 
 const config = {
   input: [
-    'src/index.js',
+    'src/index.mjs',
     'src/configHelpers.js',
     'src/geojsonHelpers.js',
     'src/geospatialHelpers.js',
@@ -50,6 +50,7 @@ const configs = R.map(c => {
     ])
   },
   // ES
+  /*
   {
     output: {
       dir: 'esm',
@@ -66,8 +67,6 @@ const configs = R.map(c => {
       nodeResolve({}), babel()
     ])
   },
-
-  /*
   // ES for Browsers
   {
     output: {

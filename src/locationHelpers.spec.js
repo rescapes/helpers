@@ -124,7 +124,7 @@ describe('locationheleprs', () => {
     expect(
       R.length(extractSquareGridBboxesFromGeojson({cellSize: 1, units: 'kilometers'}, geojsonSmall))
     ).toEqual(
-      1
+      4
     );
     const geojson = {
       type: 'FeatureCollection',

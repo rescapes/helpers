@@ -2,8 +2,9 @@
   "name": "rescape-helpers",
   "version": "1.1.110",
   "description": "Rescape helper functions",
-  "main": "lib/index.js",
-  "module": "src/index.js",
+  "main": "src/index.mjs",
+  "module": "src/index.mjs",
+  "type": "module",
   "files": [
     "lib",
     "src"
@@ -12,10 +13,8 @@
     "clean": "rimraf lib dist es coverage",
     "lint": "eslint src",
     "test": "cross-env jest",
-    "test:watch": "yarn test -- --watch",
-    "test:cov": "yarn test -- --coverage",
     "build": "rollup -c",
-    "prepare": "yarn run install-peers && cross-env ENABLE_INTEGRATION_TESTS=false yarn run clean && yarn run lint && yarn run build",
+    "prepare": "cross-env ENABLE_INTEGRATION_TESTS=false yarn run clean && yarn run lint && yarn run build",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "yarn run docs:prepare && gitbook build -g calocan/resacpe-helpers && cp logo/apple-touch-icon.png _book/gitbook/images/apple-touch-icon-precomposed-152.png && cp logo/favicon.ico _book/gitbook/images",
@@ -46,77 +45,68 @@
     "@turf/square-grid": "^6.0.2",
     "@turf/transform-translate": "^5.1.5",
     "apollo-client-preset": "^1.0.8",
-    "babel-plugin-transform-es2015-modules-commonjs-simple": "^6.7.4",
-    "d3-scale": "^3.0.1",
+    "d3-scale": "^3.2.3",
     "folktale": "^2.3.0",
-    "graphql": "^14.4.2",
+    "graphql": "^15.4.0",
     "graphql-geojson": "^1.0.0",
-    "graphql-tools": "^4.0.5",
+    "graphql-tools": "^7.0.1",
     "immutable": "^4.0.0-rc.9",
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.4.0",
     "longjohn": "^0.2.12",
-    "moment": "^2.22.2",
+    "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "numeral": "^2.0.6",
     "parse-decimal-number": "^1.0.0",
     "prop-types": "^15.6.2",
-    "ramda": "^0.26.1",
-    "redux": "^4.0.4",
+    "ramda": "^0.27.1",
+    "redux": "^4.0.5",
     "redux-debounced": "^0.5.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
-    "@types/jest": "^24.0.17",
-    "autoprefixer": "9.6.1",
-    "babel-eslint": "^10.0.2",
-    "babel-jest": "^24.9.0",
-    "babel-plugin-transform-es2015-modules-commonjs-simple": "^6.7.4",
+    "@types/jest": "^26.0.15",
+    "autoprefixer": "10.0.2",
     "babelrc-rollup": "^3.0.0",
-    "case-sensitive-paths-webpack-plugin": "2.2.0",
-    "chalk": "2.4.2",
-    "copy-webpack-plugin": "^5.0.4",
-    "cross-env": "^5.2.0",
-    "dotenv": "8.0.0",
-    "eslint": "6.1.0",
-    "eslint-loader": "2.2.1",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jest": "^22.15.1",
+    "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "chalk": "4.1.0",
+    "copy-webpack-plugin": "^6.3.1",
+    "cross-env": "^7.0.2",
+    "dotenv": "8.2.0",
+    "eslint": "7.13.0",
+    "eslint-loader": "4.0.2",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
     "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "4.2.0",
-    "fs-extra": "8.1.0",
-    "install-peers-cli": "^2.1.1",
-    "jest": "24.9.0",
-    "jest-cli": "^24.9.0",
-    "jsdoc-babel": "^0.5.0",
-    "jsdoc-webpack-plugin": "^0.1.0",
-    "promise": "8.0.3",
-    "rimraf": "^3.0.0",
-    "rollup": "^1.19.4",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "10.0.2",
+    "file-loader": "6.2.0",
+    "fs-extra": "9.0.1",
+    "install-peers-cli": "^2.2.0",
+    "jest": "26.6.3",
+    "jest-cli": "^26.6.3",
+    "jsdoc-webpack-plugin": "^0.3.0",
+    "promise": "8.1.0",
+    "rescape-ramda": ">=1.6.161",
+    "rescape-validate": ">=1.3.19",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.33.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-watch": "4.3.1",
-    "sw-precache-webpack-plugin": "0.11.5",
+    "sw-precache-webpack-plugin": "1.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "url-loader": "^2.1.0",
-    "whatwg-fetch": "3.0.0"
+    "url-loader": "^4.1.1",
+    "whatwg-fetch": "3.5.0"
   },
   "peerDependencies": {
-    "rescape-ramda": ">=1.5.78",
-    "rescape-validate": ">=1.2.26"
+    "rescape-ramda": ">=1.6.161",
+    "rescape-validate": ">=1.3.19"
   },
   "jest": {
     "modulePaths": [
@@ -129,13 +119,9 @@
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
-    "testEnvironment": "node",
+    "testEnvironment": "jest-environment-node",
     "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
+    "transform": {},
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
@@ -148,33 +134,5 @@
       "node",
       "mjs"
     ]
-  },
-  "babel": {
-    "sourceMaps": true,
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "env": {
-      "test": {
-        "plugins": [
-          [
-            "transform-es2015-modules-commonjs-simple",
-            {
-              "noMangle": true
-            }
-          ],
-          [
-            "@babel/plugin-transform-runtime",
-            {
-              "helpers": true,
-              "regenerator": true
-            }
-          ]
-        ]
-      }
-    }
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint"
   }
 }
