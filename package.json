@@ -1,6 +1,6 @@
 {
-  "name": "rescape-helpers",
-  "version": "1.1.111",
+  "name": "@rescapes/helpers",
+  "version": "1.1.112",
   "description": "Rescape helper functions",
   "main": "src/index.mjs",
   "module": "src/index.mjs",
@@ -27,12 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/calocan/rescape-helpers"
+    "url": "git+https://github.com/rescapes/helpers"
   },
   "author": "Andy Likuski andy@likuski.org",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/calocan/rescape-helpers"
+    "url": "https://github.com/rescapes/helpers"
   },
   "dependencies": {
     "@turf/area": "^6.0.1",
