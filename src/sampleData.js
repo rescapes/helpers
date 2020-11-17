@@ -17,7 +17,7 @@ import {
   GraphQLString,
   GraphQLNonNull
 } from 'graphql';
-import {reqPathThrowing, findOneValueByParams} from 'rescape-ramda';
+import {reqPathThrowing, findOneValueByParams} from '@rescapes/ramda';
 
 const RegionType = new GraphQLObjectType({
   name: 'Region',

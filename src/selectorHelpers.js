@@ -10,7 +10,7 @@
  */
 
 import Result from 'folktale/result';
-import {filterWithKeys, mapPropValueAsIndex, mergeDeep, flattenObj, unflattenObj} from 'rescape-ramda';
+import {filterWithKeys, mapPropValueAsIndex, mergeDeep, flattenObj, unflattenObj} from '@rescapes/ramda';
 import * as R from 'ramda';
 
 /**

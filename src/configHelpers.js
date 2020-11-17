@@ -17,9 +17,9 @@ import {
   reqStrPathThrowing,
   strPathOr,
   findOneValueByParamsThrowing
-} from 'rescape-ramda';
+} from '@rescapes/ramda';
 import PropTypes from 'prop-types';
-import {v} from 'rescape-validate';
+import {v} from '@rescapes/validate';
 
 export const applyDefaultStyles = v(R.curry((defaultConfig, styles) =>
     mergeDeep(

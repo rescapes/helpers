@@ -19,7 +19,7 @@
  */
 import {applyDefaultRegion, mapDefaultUsers, keysAsIdObj, applyRegionsToUsers} from './configHelpers';
 import * as R from 'ramda';
-import {reqPathThrowing, findOneValueByParamsThrowing} from 'rescape-ramda';
+import {reqPathThrowing, findOneValueByParamsThrowing} from '@rescapes/ramda';
 import {parseApiUrl} from 'configHelpers';
 
 const APP_ADMIN = 'app_admin';

@@ -10,7 +10,7 @@
  */
 
 import * as R from 'ramda';
-import {mapPropValueAsIndex} from 'rescape-ramda';
+import {mapPropValueAsIndex} from '@rescapes/ramda';
 import {fromJS, Iterable} from 'immutable';
 
 /* a
