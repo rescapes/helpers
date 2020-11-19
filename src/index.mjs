@@ -1,23 +1,23 @@
-export {concatFeatures, featureByType, geojsonByType} from './geojsonHelpers';
-export {calculateDistance} from './geospatialHelpers';
-export {copy, fromImmutable, toImmutable, toImmutableKeyedByProp, toJS} from './immutableHelpers';
+export {concatFeatures, featureByType, geojsonByType} from './geojsonHelpers.js';
+export {calculateDistance} from './geospatialHelpers.js';
+export {copy, fromImmutable, toImmutable, toImmutableKeyedByProp, toJS} from './immutableHelpers.js';
 
-export {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers';
+export {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers.js';
 export {
   resultToPromise,
   expectTask, expectTaskRejected
-} from './testHelpers';
+} from './testHelpers.js';
 
-export {toTimeString} from './timeHelpers';
+export {toTimeString} from './timeHelpers.js';
 export {
   applyDefaultRegion, applyRegionsToUsers, firstUserLens, mapDefaultUsers,
   wrapLocationsWithFeatures, applyDefaultStyles, keysAsIdObj, parseApiUrl
-} from './configHelpers';
+} from './configHelpers.js';
 
 export {
   makeInnerJoinByLensThenFilterSelector,
   mergeStateAndProps, STATUS, status
-} from './selectorHelpers';
+} from './selectorHelpers.js';
 
 export {
   googleLocationToTurfPoint,
@@ -31,9 +31,9 @@ export {
   extractSquareGridBboxesFromBounds,
   extractSquareGridBboxesFromGeojson,
   extractSquareGridFeatureCollectionFromGeojson
-} from './locationHelpers';
+} from './locationHelpers.js';
 
 export {
   convertFromGraphqlStructure,
   convertToGraphqlStructure
-} from './graphqlHelpers';
+} from './graphqlHelpers.js';

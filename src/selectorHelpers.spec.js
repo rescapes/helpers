@@ -10,7 +10,7 @@
  */
 
 import * as R from 'ramda';
-import {mergeStateAndProps, makeInnerJoinByLensThenFilterSelector} from './selectorHelpers';
+import {mergeStateAndProps, makeInnerJoinByLensThenFilterSelector} from './selectorHelpers.js';
 
 describe('reselectHelpers', () => {
   test('mergeStateAndProps', () => {

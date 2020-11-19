@@ -14,7 +14,7 @@ import {
   googleLocationToLocation, googleLocationToTurfPoint,
   locationToGoogleFunctionalLocation,
   turfBboxToOsmBbox
-} from './locationHelpers';
+} from './locationHelpers.js';
 import {googleLocationToTurfLineString} from 'locationHelpers';
 import * as R from 'ramda';
 

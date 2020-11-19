@@ -11,7 +11,7 @@
 import {
   convertFromGraphqlStructure,
   convertToGraphqlStructure
-} from './graphqlHelpers';
+} from './graphqlHelpers.js';
 
 describe('grpahqlHelpers', () => {
   const outputParams = [

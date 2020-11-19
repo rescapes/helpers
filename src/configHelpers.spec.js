@@ -17,7 +17,7 @@
  * @param {String[]} regionKeys The region keys to target.
  * @returns {Object} The "modified" defaultConfig
  */
-import {applyDefaultRegion, mapDefaultUsers, keysAsIdObj, applyRegionsToUsers} from './configHelpers';
+import {applyDefaultRegion, mapDefaultUsers, keysAsIdObj, applyRegionsToUsers} from './configHelpers.js';
 import * as R from 'ramda';
 import {reqPathThrowing, findOneValueByParamsThrowing} from '@rescapes/ramda';
 import {parseApiUrl} from 'configHelpers';

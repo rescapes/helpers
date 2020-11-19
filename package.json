@@ -19,7 +19,7 @@
     "docs:prepare": "gitbook install",
     "docs:build": "yarn run docs:prepare && gitbook build -g calocan/resacpe-helpers && cp logo/apple-touch-icon.png _book/gitbook/images/apple-touch-icon-precomposed-152.png && cp logo/favicon.ico _book/gitbook/images",
     "docs:watch": "yarn run docs:prepare && gitbook serve",
-    "docs:publish": "yarn run docs:clean && yarn run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:calocan/rescape-helpers gh-pages --force",
+    "docs:publish": "yarn run docs:clean && yarn run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:rescape/helpers gh-pages --force",
     "build-publish-patch": "yarn run build && yarn run publish-patch",
     "build-publish-minor": "yarn run build && yarn run publish-minor",
     "publish-patch": "yarn version --patch && yarn publish --non-interactive",
