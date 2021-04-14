@@ -1,6 +1,5 @@
 export {concatFeatures, featureByType, geojsonByType} from './geojsonHelpers.js';
 export {calculateDistance} from './geospatialHelpers.js';
-export {copy, fromImmutable, toImmutable, toImmutableKeyedByProp, toJS} from './immutableHelpers.js';
 
 export {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers.js';
 export {

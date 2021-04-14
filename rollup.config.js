@@ -12,7 +12,6 @@ const config = {
     'src/configHelpers.js',
     'src/geojsonHelpers.js',
     'src/geospatialHelpers.js',
-    'src/immutableHelpers.js',
     'src/locationHelpers.js',
     'src/selectorHelpers.js',
     'src/svgHelpers.js',
