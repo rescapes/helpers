@@ -48,7 +48,6 @@
     "graphql": "^15.4.0",
     "graphql-geojson": "^1.0.0",
     "graphql-tools": "^7.0.1",
-    "immutable": "^4.0.0-rc.9",
     "jsdom": "^16.4.0",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
