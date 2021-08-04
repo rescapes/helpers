@@ -15,6 +15,7 @@ import squareGrid from '@turf/square-grid';
 import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';
 import area from '@turf/area';
+import {bufferAndUnionGeojson} from "@rescapes/osm/src/locationHelpers";
 
 /**
  * Convert a location to what Google sometimes uses, with lat(), lng()
@@ -123,16 +124,11 @@ export const extractSquareGridBboxesFromBounds = ({cellSize, units}, bounds) => 
  */
 export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units}, geojson) => {
   const squareGridOptions = {units: units || 'kilometers', mask: geojson};
-  const box = bbox.default(geojson);
-  const length = Math.sqrt(area.default(bboxPolygon.default(box)));
-  // Ignore features less than about 1 km length
-  // TODO I don't remember whey I did this. It ruins searching for weird shapes because they don't get conveted
-  // to small boxes
-  /*
-  if (R.gt(1000, length)) {
-    return geojson;
-  }
-  */
+  // Because we use a mask, we have to make the bbox significantly bigger than the mask, or else the mask doesn't
+  // work. I don't know why--seems like a bug in Turf.
+  const box = bbox.default(
+    bufferAndUnionGeojson({radius: 10, units: 'kilometers'}, geojson)
+  );
   // Use turf's squareGrid function to break up the bbox by cellSize squares
   return R.reduceWhile(
     // Quit if the accumulator has values
