@@ -13,9 +13,7 @@ import {point, lineString} from '@turf/helpers';
 import * as R from 'ramda';
 import squareGrid from '@turf/square-grid';
 import bbox from '@turf/bbox';
-import bboxPolygon from '@turf/bbox-polygon';
-import area from '@turf/area';
-import {bufferAndUnionGeojson} from "@rescapes/osm/src/locationHelpers";
+import {bufferAndUnionGeojson} from "./geojsonHelpers";
 
 /**
  * Convert a location to what Google sometimes uses, with lat(), lng()

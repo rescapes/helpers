@@ -1,4 +1,4 @@
-export {concatFeatures, featureByType, geojsonByType} from './geojsonHelpers.js';
+export {concatFeatures, featureByType, geojsonByType, bufferAndUnionGeojson} from './geojsonHelpers.js';
 export {calculateDistance} from './geospatialHelpers.js';
 
 export {resolveFeatureFromExtent, resolveSvgPoints} from './svgHelpers.js';

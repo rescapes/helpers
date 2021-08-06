@@ -8,7 +8,9 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
+import buffer from '@turf/buffer';
+import union from '@turf/union';
+import {toArrayIfNot} from '@rescapes/ramda';
 import * as R from 'ramda';
 const reduceFeaturesBy = R.reduceBy((acc, feature) => acc.concat(feature), []);
 const regex = /(.+)\/\d+/;
@@ -42,3 +44,24 @@ export const geojsonByType = osm => {
  * @returns {Object} The concatted features
  */
 export const concatFeatures = (k, l, r) => k === FEATURES ? R.concat(l, r) : r;
+
+/**
+ * Given a geojson feature collection, buffer it union each feature from the buffer
+ * @param {Object} config
+ * @param {Number} config.radius
+ * @param {String} config.units
+ * @param {Object} geojson Feature Collection to buffer
+ * @return {Object} A feature collection  containing one or more features
+ */
+export const bufferAndUnionGeojson = ({radius, units}, geojson) => {
+  const buffered = buffer(geojson, radius, {units});
+  const features = R.compose(toArrayIfNot, R.when(R.propEq('type', 'FeatureCollection'), R.prop('features')))(buffered);
+  const feature = R.reduce(
+    (acc, f) => {
+      return !acc ? f : union.default(acc, f);
+    },
+    null,
+    features
+  );
+  return {type: 'FeatureCollection', features: [feature]};
+};
