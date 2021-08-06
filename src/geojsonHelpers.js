@@ -47,9 +47,9 @@ export const concatFeatures = (k, l, r) => k === FEATURES ? R.concat(l, r) : r;
 
 /**
  * Given a geojson feature collection, buffer it union each feature from the buffer
- * @param {Object} config
- * @param {Number} config.radius
- * @param {String} config.units
+ * @param {Object} config The config
+ * @param {Number} config.radius The radius
+ * @param {String} config.units The units
  * @param {Object} geojson Feature Collection to buffer
  * @return {Object} A feature collection  containing one or more features
  */

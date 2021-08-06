@@ -13,7 +13,7 @@ import {point, lineString} from '@turf/helpers';
 import * as R from 'ramda';
 import squareGrid from '@turf/square-grid';
 import bbox from '@turf/bbox';
-import {bufferAndUnionGeojson} from "./geojsonHelpers";
+import {bufferAndUnionGeojson} from './geojsonHelpers.js';
 
 /**
  * Convert a location to what Google sometimes uses, with lat(), lng()
