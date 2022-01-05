@@ -1,6 +1,6 @@
 {
   "name": "@rescapes/helpers",
-  "version": "1.1.127",
+  "version": "1.1.128",
   "description": "Rescape helper functions",
   "main": "src/index.mjs",
   "module": "src/index.mjs",
