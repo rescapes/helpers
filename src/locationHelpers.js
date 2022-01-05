@@ -104,7 +104,7 @@ export const extractSquareGridBboxesFromBounds = ({cellSize, units}, bounds) => 
   // Use turf's squareGrid function to break up the bbox by cellSize squares
   return R.map(
     polygon => bbox.default(polygon),
-    squareGrid.default(bounds, cellSize, squareGridOptions).features
+    squareGrid(bounds, cellSize, squareGridOptions).features
   );
 };
 
@@ -131,7 +131,7 @@ export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units},
   return R.reduceWhile(
     // Quit if the accumulator has values
     (accum, _) => R.compose(R.not, R.length, R.prop('features'))(accum),
-    (accum, currentCellSize) => squareGrid.default(
+    (accum, currentCellSize) => squareGrid(
       box,
       currentCellSize,
       squareGridOptions

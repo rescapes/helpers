@@ -58,7 +58,7 @@ export const bufferAndUnionGeojson = ({radius, units}, geojson) => {
   const features = R.compose(toArrayIfNot, R.when(R.propEq('type', 'FeatureCollection'), R.prop('features')))(buffered);
   const feature = R.reduce(
     (acc, f) => {
-      return !acc ? f : union.default(acc, f);
+      return !acc ? f : union(acc, f);
     },
     null,
     features
