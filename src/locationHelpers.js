@@ -103,7 +103,7 @@ export const extractSquareGridBboxesFromBounds = ({cellSize, units}, bounds) => 
   const squareGridOptions = {units: units || 'kilometers'};
   // Use turf's squareGrid function to break up the bbox by cellSize squares
   return R.map(
-    polygon => bbox.default(polygon),
+    polygon => bbox(polygon),
     squareGrid(bounds, cellSize, squareGridOptions).features
   );
 };
@@ -124,7 +124,7 @@ export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units},
   const squareGridOptions = {units: units || 'kilometers', mask: geojson};
   // Because we use a mask, we have to make the bbox significantly bigger than the mask, or else the mask doesn't
   // work. I don't know why--seems like a bug in Turf.
-  const box = bbox.default(
+  const box = bbox(
     bufferAndUnionGeojson({radius: 10, units: 'kilometers'}, geojson)
   );
   // Use turf's squareGrid function to break up the bbox by cellSize squares
@@ -153,7 +153,7 @@ export const extractSquareGridFeatureCollectionFromGeojson = ({cellSize, units},
  */
 export const extractSquareGridBboxesFromGeojson = ({cellSize, units}, geojson) => {
   return R.map(
-    polygon => bbox.default(polygon),
+    polygon => bbox(polygon),
     extractSquareGridFeatureCollectionFromGeojson({cellSize, units}, geojson).features
   );
 };
