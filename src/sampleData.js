@@ -75,6 +75,6 @@ addResolveFunctionsToSchema(resolvedSchema, {
   }
 });
 
-export const createInitialState = config => R.merge({
+export const createInitialState = config => R.mergeRight({
   foo: 'boo'
 }, config);

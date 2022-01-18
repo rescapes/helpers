@@ -111,7 +111,7 @@ export const applyRegionsToUsers = R.curry((regions, users) =>
     user => R.set(
       R.lensPath(['regions']),
       R.addIndex(R.map)(
-        (id, index) => R.merge(
+        (id, index) => R.mergeRight(
           {id},
           // Set the first region to isSelected true
           R.ifElse(R.equals(0), R.always({isSelected: true}), R.always({}))(index)),

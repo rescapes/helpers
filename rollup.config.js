@@ -1,7 +1,4 @@
-import nodeResolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
-import replace from 'rollup-plugin-replace';
-import {terser} from 'rollup-plugin-terser';
 import commonjs from 'rollup-plugin-commonjs';
 import pkg from './package.json';
 import * as R from 'ramda';
@@ -13,7 +10,6 @@ const config = {
     'src/geojsonHelpers.js',
     'src/geospatialHelpers.js',
     'src/locationHelpers.js',
-    'src/selectorHelpers.js',
     'src/svgHelpers.js',
     'src/testHelpers.js',
     'src/timeHelpers.js'
@@ -23,8 +19,7 @@ const config = {
 const externals = ['symbol-observable', 'folktale/concurrency/task', 'folktale/result/index.js'];
 
 const configs = R.map(c => {
-  const x = R.merge(config, c);
-  //console.warn(x);
+  const x = R.mergeRight(config, c);
   return x;
 }, [
   // CommonJS

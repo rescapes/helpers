@@ -69,7 +69,7 @@ describe('configHelpers', () => {
       R.keys(applyDefaultRegion(defaultRegion, regions).kamchatka).sort()
     ).toEqual(
       R.keys(
-        R.merge(
+        R.mergeRight(
           regions.kamchatka,
           defaultRegion
         )
@@ -105,7 +105,7 @@ describe('configHelpers', () => {
       R.keys(reqPathThrowing([REGION_MANAGER, 'linus'], mergedConfig)).sort()
     ).toEqual(
       R.keys(
-        R.merge(
+        R.mergeRight(
           realUsers.linus,
           findOneValueByParamsThrowing({templateKey: REGION_MANAGER}, defaultUsers)
         )

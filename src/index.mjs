@@ -14,11 +14,6 @@ export {
 } from './configHelpers.js';
 
 export {
-  makeInnerJoinByLensThenFilterSelector,
-  mergeStateAndProps, STATUS, status
-} from './selectorHelpers.js';
-
-export {
   googleLocationToTurfPoint,
   googleLocationToTurfLineString,
   locationToGoogleFunctionalLocation,
